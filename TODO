@@ -1,0 +1,47 @@
+Game Rules:
+    ☐ 3 play locations
+        ☐ 4 card slots per location per player
+    ☐ 1 deck per player
+    ☐ When play submitted, winning player's cards flip first -- if tie, flip coin
+    ☐ At end of turn, the player with higher total power at a location ears points for difference of power
+    ☐ First player to reach N points wins game
+    ☐ N is integer val between 10 and 25 (I decide)
+    ☐ Mana count is set to turn num at start of turn
+    ☐ Player stats:
+        ☐ 20 card decks -- No more than 2 copies of the same card
+    ☐ 3 cards in each player's starting hand
+    ☐ 1 card drawn from each player's deck into hand at start of turn
+    ☐ 7 card max per hand
+
+Rubric:
+    ✔ Name game @done(25-05-26 13:35)
+    ✔ Background @done(25-05-26 14:52)
+    ☐ Hand
+        ☐ Cards must be in either:
+            ☐ Deck
+            ☐ Discard
+            ☐ Hand
+            ☐ 3 play locations
+    ☐ Card mana cost
+    ☐ Submit button
+        ☐ Flips cards face down
+        ☐ Play's AI's cards face down (randomly)
+        ☐ Reveals face down cards in staged order
+    ☐ Card functions
+    ☐ 14 implemented cards
+        ☐ 4 vanilla
+        ☐ 10 special
+    ☐ Cards display:
+        ☐ Name
+        ☐ Cost
+        ☐ Power
+        ☐ Text
+    ☐ Points gathered for both players (visible on screen)
+    ☐ Turn structure implemented
+        ☐ If either player wins, display message, and display play again button
+
+Todo at end of project:
+    ☐ Write README when programming done
+    ☐ Extra Credit:
+        ☐ Put card data in external (possibly json) file
+        ☐ Title screen
