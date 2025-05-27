@@ -18,6 +18,8 @@ function love.load()
     cardWidth = 75
     cardHeight = 105
 
+end
+
 function love.update()
 
 end
