@@ -1,9 +1,7 @@
 -- Cassian Jones
--- Project 3 - Minos
+-- Project 3 - MINOS
 -- CMPM 121
 -- 5/28/25
-
-
 
 function love.load()
     -- window details
@@ -13,15 +11,15 @@ function love.load()
     sizeX = love.graphics:getWidth()
     sizeY = love.graphics:getHeight()
 
-    math.randomseed(os.time())
-
     cardWidth = 75
     cardHeight = 105
 
+    math.randomseed(os.time())
+    playSurface = playSurfance:new()
 end
 
 function love.update()
-
+    playSurface:update()
 end
 
 function love.draw()
@@ -34,4 +32,3 @@ function love.draw()
     love.graphics.line(sizeX/2, 0, sizeX/2, sizeY)
     love.graphics.line(0, sizeY/2, sizeX, sizeY/2) ]]
 end
-

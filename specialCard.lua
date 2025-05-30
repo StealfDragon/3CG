@@ -20,6 +20,6 @@ function SpecialCardClass:getPower()
 
 end
 
-function SpecialCardClass:activatePower()
+function SpecialCardClass:activateAbility()
 
 end

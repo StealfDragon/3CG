@@ -16,6 +16,7 @@ Game Rules:
 Rubric:
     ✔ Name game @done(25-05-26 13:35)
     ✔ Background @done(25-05-26 14:52)
+    ☐ Draw cards, move cards
     ☐ Hand
         ☐ Cards must be in either:
             ☐ Deck
@@ -44,6 +45,3 @@ Rubric:
 
 Todo at end of project:
     ☐ Write README when programming done
-    ☐ Extra Credit:
-        ☐ Put card data in external (possibly json) file
-        ☐ Title screen
