@@ -4,11 +4,11 @@ PlaySpotClass.__index = PlaySpotClass
 function PlaySpotClass:new(xPos, yPos)
     local playSpot = setmetatable({}, self) 
 
-    spotWidth = 1050
-    spotHeight = 750
+    --spotWidth = 320
+    --spotHeight = 160
 
-    playSpot.position = Vector(xPos, yPos)
     playSpot.size = Vector(spotWidth, spotHeight)
+    playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
     playSpot.numCards = 0
     playSpot.cards = {}
 
@@ -22,6 +22,12 @@ function PlaySpotClass:new(xPos, yPos)
     playSpot.highestCard = nil
 
     return playSpot
+end
+
+function PlaySpotClass:draw()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setLineWidth(2)
+    love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
 end
 
 function PlaySpotClass:addCard()

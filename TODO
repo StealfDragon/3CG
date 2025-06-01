@@ -16,14 +16,18 @@ Game Rules:
 Rubric:
     ✔ Name game @done(25-05-26 13:35)
     ✔ Background @done(25-05-26 14:52)
-    ☐ Draw cards, move cards
+    ✔ Draw cards, move cards @done(25-05-31 23:22)
     ☐ Hand
         ☐ Cards must be in either:
             ☐ Deck
             ☐ Discard
             ☐ Hand
             ☐ 3 play locations
-    ☐ Card mana cost
+    ☐ Cards display:
+        ☐ Name
+        ☐ Cost
+        ☐ Power
+        ☐ Text
     ☐ Submit button
         ☐ Flips cards face down
         ☐ Play's AI's cards face down (randomly)
@@ -34,14 +38,13 @@ Rubric:
         ☐ 10 special
             ☐ Pick 10 special cards
             ☐ Implement all special cards
-    ☐ Cards display:
-        ☐ Name
-        ☐ Cost
-        ☐ Power
-        ☐ Text
+    ☐ Card mana cost
     ☐ Points gathered for both players (visible on screen)
     ☐ Turn structure implemented
         ☐ If either player wins, display message, and display play again button
 
 Todo at end of project:
     ☐ Write README when programming done
+
+1024
+75 * 4 + 60

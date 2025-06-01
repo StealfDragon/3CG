@@ -13,6 +13,9 @@ function love.load()
     sizeX = love.graphics:getWidth()
     sizeY = love.graphics:getHeight()
 
+    spotWidth = 335
+    spotHeight = 230
+
     cardWidth = 75.0
     cardHeight = 105.0
 

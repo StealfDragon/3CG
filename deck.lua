@@ -1,27 +1,32 @@
 DeckClass = {}
 DeckClass.__index = DeckClass
 
-function DeckClass:new()
+function DeckClass:new(xPos, yPos)
     local deck = setmetatable({}, self) 
 
-    deck.Cards = {}
+    deck.size = Vector(cardWidth, cardHeight)
+    deck.position = Vector(xPos, yPos) - (deck.size * 0.5)
+
+    deck.cards = {}
     deck.numCards = 0
 
     return deck
 end
 
-function HandClass:getNumCards()
+function DeckClass:draw()
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setLineWidth(2)
+    love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
+end
+
+function DeckClass:getNumCards()
 
 end
 
-function HandClass:draw()
+function DeckClass:shuffle()
 
 end
 
-function HandClass:shuffle()
-
-end
-
-function HandClass:makeCards()
+function DeckClass:makeCards()
 
 end
