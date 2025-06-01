@@ -26,11 +26,11 @@ function CardClass:new(xPos, yPos, power, cost)
 end
 
 function CardClass:update()
-    if self.state == CARD_STATE.MOUSE_OVER or CARD_STATE.GRABBED then
+    --[[ if self.state == CARD_STATE.MOUSE_OVER or CARD_STATE.GRABBED then
         grabber:update(self)
     else
         grabber:update(nil)
-    end
+    end ]]
 end
 
 function CardClass:draw()
