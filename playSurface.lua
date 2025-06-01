@@ -1,6 +1,6 @@
 require "grabber"
 require "card"
-requie "specialCard"
+require "specialCard"
 require "hand"
 require "deck"
 require "playSpot"
@@ -12,18 +12,19 @@ PlaySurfaceClass.__index = PlaySurfaceClass
 function PlaySurfaceClass:new()
     local playSurface = setmetatable({}, self) 
 
-    grabber = GrabberClass:new()
-    cardHomes = {}
+    playSurface.cardHomes = {}
+    playSurface.card = CardClass:new(500, 350, 1, 1)
 
+    return playSurface
 end
 
 function PlaySurfaceClass:update()
-    grabber:update()
-    checkMouseMoving()
+    self:checkMouseMoving()
+    self.card:update()
 end
 
 function PlaySurfaceClass:draw()
-
+    self.card:draw()
 end
 
 function PlaySurfaceClass:checkMouseMoving()
@@ -31,7 +32,10 @@ function PlaySurfaceClass:checkMouseMoving()
         return
     end
 
-    for _, card in ipairs(cardTable) do
-        card:checkForMouseOver(grabber)
-    end
+    self.card:checkMouseOver(grabber)
+
+    -- UPDATE BELOW TO ACTUALLY WORK
+    --[[ for _, card in ipairs(cardTable) do
+        card:checkMouseOver(grabber)
+    end ]]
 end
