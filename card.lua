@@ -9,7 +9,7 @@ CARD_STATE = { -- stores possible card states
     GRABBED = 2,
 }
 
-function CardClass:new(xPos, yPos, power, cost, num)
+function CardClass:new(xPos, yPos, power, cost, num, playerNum)
     local card = setmetatable({}, self) 
 
     card.size = Vector(cardWidth, cardHeight)
@@ -23,7 +23,7 @@ function CardClass:new(xPos, yPos, power, cost, num)
     card.spot = nil
     card.discarded = false
     card.locked = false
-    card.playerNum = nil
+    card.playerNum = playerNum
 
     return card
 end

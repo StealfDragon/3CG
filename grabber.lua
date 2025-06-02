@@ -29,7 +29,7 @@ function GrabberClass:update(card)
     end
     -- Release
     if not love.mouse.isDown(1) and self.grabPos ~= nil then
-        self:release()
+        self:release(card)
     end  
 
     if self.heldObject then
@@ -38,7 +38,7 @@ function GrabberClass:update(card)
 end
 
 function GrabberClass:grab(card)
-    self.grabPos = self.currentMousePos
+    self.grabPos = card.position--self.currentMousePos
     self.highlightOffset = self.currentMousePos - card.position
     print("GRAB - " .. tostring(self.grabPos))
 
@@ -48,7 +48,7 @@ function GrabberClass:grab(card)
     end
 end
 
-function GrabberClass:release()
+function GrabberClass:release(card)
     print("RELEASE - ")
     -- NEW: some more logic stubs here
     if self.heldObject == nil then -- we have nothing to release
@@ -57,7 +57,7 @@ function GrabberClass:release()
 
     -- TODO: eventually check if release position is invalid and if it is
     -- return the heldObject to the grabPosition
-    local isValidReleasePosition = true -- *insert actual check instead of "true"*
+    local isValidReleasePosition = self:isValidRelease()
     if not isValidReleasePosition then
         self.heldObject.position = self.grabPos
     end
@@ -67,4 +67,21 @@ function GrabberClass:release()
     self.heldObject = nil
     self.grabPos = nil
     self.highlightOffset = nil
+end
+
+function GrabberClass:isValidRelease()
+    local isValidReleasePos = false
+    for i, v in ipairs(playSurface.cardHomes) do
+        if v ~= playSurface.pDeck and v ~= playSurface.eDeck then
+            if self.currentMousePos.x > v.position.x and
+            self.currentMousePos.x < v.position.x + v.size.x and
+            self.currentMousePos.y > v.position.y and
+            self.currentMousePos.y < v.position.y + v.size.y then
+                isValidReleasePos = true
+                break
+            end
+        end
+    end
+
+    return isValidReleasePos
 end

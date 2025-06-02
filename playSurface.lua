@@ -94,14 +94,25 @@ function PlaySurfaceClass:checkMouseMoving()
 end
 
 function PlaySurfaceClass:fillCards()
-    self.card1 = CardClass:new(500, 350, 1, 1, 1)
-    self.card2 = CardClass:new(700, 350, 1, 1, 2)
-    self.card3 = CardClass:new(300, 350, 1, 1, 3)
-    self.card4 = CardClass:new(900, 350, 1, 1, 4)
+    self.card1 = CardClass:new(300, sizeY - (sizeY / 9), 1, 1, 1, 1)
+    self.card2 = CardClass:new(400, sizeY - (sizeY / 9), 1, 1, 2, 1)
+    self.card3 = CardClass:new(500, sizeY - (sizeY / 9), 1, 1, 3, 1)
+    self.card4 = CardClass:new(600, sizeY - (sizeY / 9), 1, 1, 4, 1)
 
     table.insert(self.pHand.cards, self.card1)
     table.insert(self.pHand.cards, self.card2)
     table.insert(self.pHand.cards, self.card3)
     table.insert(self.pHand.cards, self.card4)
+
+    table.insert(self.cardHomes, self.playSpot1)
+    table.insert(self.cardHomes, self.playSpot2)
+    table.insert(self.cardHomes, self.playSpot3)
+
     table.insert(self.cardHomes, self.pHand)
+    table.insert(self.cardHomes, self.pDeck)
+    table.insert(self.cardHomes, self.pDiscard)
+
+    table.insert(self.cardHomes, self.eHand)
+    table.insert(self.cardHomes, self.eDeck)
+    table.insert(self.cardHomes, self.eDiscard)
 end
