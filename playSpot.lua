@@ -6,17 +6,18 @@ function PlaySpotClass:new(xPos, yPos)
 
     playSpot.size = Vector(spotWidth, spotHeight)
     playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
+    playSpot.type = "playSpot"
     playSpot.numCards = 0
     playSpot.cards = {}
     playSpot.totalPower = 0
 
-    playSpot.numPlayerCards = 0
-    playSpot.playerCards = {}
-    playSpot.playerCardSpots = {}
+    playSpot.P1NumCards = 0
+    playSpot.P1Cards = {}
+    playSpot.P1CardSpots = {}
 
-    playSpot.numEnemyCards = 0
-    playSpot.enemyCards = {}
-    playSpot.enemyCardSpots = {}
+    playSpot.P2NumCards = 0
+    playSpot.P2Cards = {}
+    playSpot.P2CardSpots = {}
 
     playSpot.lowestCard = nil
     playSpot.highestCard = nil
@@ -37,11 +38,11 @@ function PlaySpotClass:draw()
     --love.graphics.setLineWidth(1)
 
     love.graphics.setLineWidth(3)
-    for _, pos in ipairs(self.enemyCardSpots) do
+    for _, pos in ipairs(self.P2CardSpots) do
         love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
     end
 
-    for _, pos in ipairs(self.playerCardSpots) do
+    for _, pos in ipairs(self.P1CardSpots) do
         love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
     end
     love.graphics.setLineWidth(1)
@@ -78,9 +79,9 @@ function PlaySpotClass:makeCardSlots()
             local pos = Vector(x, y)
 
             if i == 1 then
-                table.insert(self.enemyCardSpots, pos) 
+                table.insert(self.P2CardSpots, pos) 
             else
-                table.insert(self.playerCardSpots, 1, pos)
+                table.insert(self.P1CardSpots, 1, pos)
             end
         end
     end

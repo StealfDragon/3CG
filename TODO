@@ -17,12 +17,12 @@ Rubric:
     ✔ Name game @done(25-05-26 13:35)
     ✔ Background @done(25-05-26 14:52)
     ✔ Draw cards, move cards @done(25-05-31 23:22)
-    ☐ Hand
-        ☐ Cards must be in either:
-            ☐ Deck
-            ☐ Discard
-            ☐ Hand
-            ☐ 3 play locations
+    ✔ Cards must be in either: @done(25-06-02 05:15)
+        ☐ Deck
+        ☐ Discard
+        ☐ Hand
+        ☐ 3 play locations
+    ☐ Cards are correctly added to hand, playSpot, and discard
     ☐ Cards display:
         ☐ Name
         ☐ Cost

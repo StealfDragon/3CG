@@ -6,11 +6,14 @@ function DiscardClass:new(xPos, yPos)
 
     discardPile.size = Vector(cardWidth, cardHeight)
     discardPile.position = Vector(xPos, yPos) - (discardPile.size * 0.5)
+    discardPile.type = "discard"
     
     discardPile.numCards = 0
     discardPile.cards = {}
     discardPile.lowestCard = nil
     discardPile.highestCard = nil
+
+    discardPile.playerNum = nil
 
     return discardPile
 end

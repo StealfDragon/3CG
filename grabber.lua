@@ -29,7 +29,7 @@ function GrabberClass:update(card)
     end
     -- Release
     if not love.mouse.isDown(1) and self.grabPos ~= nil then
-        self:release(card)
+        self:release()
     end  
 
     if self.heldObject then
@@ -48,7 +48,7 @@ function GrabberClass:grab(card)
     end
 end
 
-function GrabberClass:release(card)
+function GrabberClass:release()
     print("RELEASE - ")
     -- NEW: some more logic stubs here
     if self.heldObject == nil then -- we have nothing to release
@@ -57,8 +57,8 @@ function GrabberClass:release(card)
 
     -- TODO: eventually check if release position is invalid and if it is
     -- return the heldObject to the grabPosition
-    local isValidReleasePosition = self:isValidRelease()
-    if not isValidReleasePosition then
+    local isValid, target = self:isValidRelease()
+    if not isValid then
         self.heldObject.position = self.grabPos
     end
 
@@ -71,17 +71,33 @@ end
 
 function GrabberClass:isValidRelease()
     local isValidReleasePos = false
+    local releaseLocation = nil
     for i, v in ipairs(playSurface.cardHomes) do
-        if v ~= playSurface.pDeck and v ~= playSurface.eDeck then
+        if v.type ~= "deck" then
             if self.currentMousePos.x > v.position.x and
             self.currentMousePos.x < v.position.x + v.size.x and
             self.currentMousePos.y > v.position.y and
             self.currentMousePos.y < v.position.y + v.size.y then
                 isValidReleasePos = true
+                releaseLocation = v
                 break
             end
         end
     end
 
-    return isValidReleasePos
+    if isValidReleasePos and releaseLocation.type == "playSpot" then
+        if releaseLocation.P1NumCards >= 4 then
+            isValidReleasePos = false
+        end
+    end
+
+    if isValidReleasePos and releaseLocation.type == "hand" then
+        if releaseLocation.playerNum ~= self.heldObject.playerNum then
+            isValidReleasePos = false
+        elseif #releaseLocation.cards >= 7 then
+            isValidReleasePos = false
+        end
+    end
+
+    return isValidReleasePos, releaseLocation
 end

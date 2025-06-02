@@ -21,11 +21,11 @@ function PlaySurfaceClass:new()
     playSurface.playSpot2 = PlaySpotClass:new(sizeX / 2, sizeY / 2)
     playSurface.playSpot3 = PlaySpotClass:new(sizeX - ((spotWidth / 2) + 2), sizeY / 2)
 
-    playSurface.pHand = HandClass:new(sizeX / 2, sizeY - (sizeY / 9))
+    playSurface.pHand = HandClass:new(sizeX / 2, sizeY - (sizeY / 9), 1)
     playSurface.pDeck = DeckClass:new(sizeX - sizeX/13, sizeY - (sizeY / 9))
     playSurface.pDiscard = DiscardClass:new(sizeX/13, sizeY - (sizeY / 9))
 
-    playSurface.eHand = HandClass:new(sizeX / 2, sizeY / 9)
+    playSurface.eHand = HandClass:new(sizeX / 2, sizeY / 9, 2)
     playSurface.eDeck = DeckClass:new(sizeX/13, sizeY / 9)
     playSurface.eDiscard = DiscardClass:new(sizeX - sizeX/13, sizeY / 9)
     -- NOTE: enemy discard and deck x positions flipped

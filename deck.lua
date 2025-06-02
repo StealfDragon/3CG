@@ -6,9 +6,12 @@ function DeckClass:new(xPos, yPos)
 
     deck.size = Vector(cardWidth, cardHeight)
     deck.position = Vector(xPos, yPos) - (deck.size * 0.5)
+    deck.type = "deck"
 
     deck.cards = {}
     deck.numCards = 0
+
+    deck.playerNum = nil
 
     return deck
 end
@@ -21,6 +24,10 @@ function DeckClass:draw()
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
     love.graphics.setLineWidth(1)
+end
+
+function DeckClass:removeCard()
+
 end
 
 function DeckClass:getNumCards()
