@@ -23,3 +23,11 @@ end
 function SpecialCardClass:activateAbility()
 
 end
+
+function SpecialCardClass:moveLocation()
+
+end
+
+function SpecialCardClass:copy()
+
+end

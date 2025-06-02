@@ -23,6 +23,7 @@ function CardClass:new(xPos, yPos, power, cost, num)
     card.spot = nil
     card.discarded = false
     card.locked = false
+    card.playerNum = nil
 
     return card
 end
@@ -33,9 +34,10 @@ end
 
 function CardClass:draw()
     if self.state ~= CARD_STATE.IDLE then
-        love.graphics.setColor(0.16, 0.89, 0.184, 0.8) -- color values [0, 1]
-        local offset = 6
+        love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
+        local offset = 7
         local halfOffset = offset / 2.0
+
         love.graphics.rectangle("fill", self.position.x - halfOffset, self.position.y - halfOffset, self.size.x + offset, self.size.y + offset, 100, 6)
     end
   
@@ -90,18 +92,6 @@ function CardClass:setSpot()
 
 end
 
-function CardClass:attack()
-
-end
-
 function CardClass:discard()
-
-end
-
-function CardClass:moveLocation()
-
-end
-
-function CardClass:copy()
 
 end

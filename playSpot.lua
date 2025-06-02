@@ -4,19 +4,19 @@ PlaySpotClass.__index = PlaySpotClass
 function PlaySpotClass:new(xPos, yPos)
     local playSpot = setmetatable({}, self, spotWidth, spotHeight) 
 
-    --spotWidth = 320
-    --spotHeight = 160
-
     playSpot.size = Vector(spotWidth, spotHeight)
     playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
     playSpot.numCards = 0
     playSpot.cards = {}
+    playSpot.totalPower = 0
 
     playSpot.numPlayerCards = 0
     playSpot.playerCards = {}
+    playSpot.playerCardSpots = {}
 
     playSpot.numEnemyCards = 0
     playSpot.enemyCards = {}
+    playSpot.enemyCardSpots = {}
 
     playSpot.lowestCard = nil
     playSpot.highestCard = nil
