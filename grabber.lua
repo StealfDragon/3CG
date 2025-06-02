@@ -33,7 +33,7 @@ function GrabberClass:update(card)
     end  
 
     if self.heldObject then
-        self.heldObject.position = self.currentMousePos - self.highlightOffset--self.heldObject.position = self.currentMousePos - Vector(cardWidth / 2, cardHeight / 2)
+        self.heldObject.position = self.currentMousePos - self.highlightOffset
     end
 end
 
@@ -55,7 +55,6 @@ function GrabberClass:release()
         return
     end
 
-    -- TODO: eventually check if release position is invalid and if it is
     -- return the heldObject to the grabPosition
     local isValid, target = self:isValidRelease()
     if not isValid then
@@ -72,6 +71,8 @@ end
 function GrabberClass:isValidRelease()
     local isValidReleasePos = false
     local releaseLocation = nil
+
+    -- Checks all possibe card "homes" to see if the cursor, and therefore the card, are within their limits
     for i, v in ipairs(playSurface.cardHomes) do
         if v.type ~= "deck" then
             if self.currentMousePos.x > v.position.x and
@@ -85,12 +86,14 @@ function GrabberClass:isValidRelease()
         end
     end
 
+    -- Checks to see if the playSpot's P1 slots are full. No need for P2 check, as the computer will never use grabber.
     if isValidReleasePos and releaseLocation.type == "playSpot" then
         if releaseLocation.P1NumCards >= 4 then
             isValidReleasePos = false
         end
     end
 
+    -- Checks to see if the player is dropping the card back to the correct hand, and if that hand is full.
     if isValidReleasePos and releaseLocation.type == "hand" then
         if releaseLocation.playerNum ~= self.heldObject.playerNum then
             isValidReleasePos = false
@@ -99,5 +102,6 @@ function GrabberClass:isValidRelease()
         end
     end
 
+    -- also returns the valid release target (so that I can later initiate the target's addCard function from grabber)
     return isValidReleasePos, releaseLocation
 end

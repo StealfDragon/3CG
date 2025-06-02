@@ -33,6 +33,7 @@ function CardClass:update()
 end
 
 function CardClass:draw()
+    -- Draws green outline when card is hovered over or picked up
     if self.state ~= CARD_STATE.IDLE then
         love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
         local offset = 7
@@ -40,25 +41,23 @@ function CardClass:draw()
 
         love.graphics.rectangle("fill", self.position.x - halfOffset, self.position.y - halfOffset, self.size.x + offset, self.size.y + offset, 100, 6)
     end
-  
+    
+    -- Draws parchment-colored background
     love.graphics.setColor(0.9, 0.89, 0.83, 1)
     love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
 
+    -- Draws grey outline
     love.graphics.setColor(0.388, 0.388, 0.388, 1)
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
-
     love.graphics.setLineWidth(1)
 
+    -- Temp drawing to keep track of state, but that works pretty well, so TODO is to remove soon
     love.graphics.setColor(1, 0, 0, 1)
     love.graphics.print(tostring(self.state), self.position.x + 10.5, self.position.y + 10.5)
 
+    -- Temp drawing to keep track of card num, but that will be overhauled as soon as I get past the main gameplay mechanics, and onto making the cards look and act like CCG cards
     love.graphics.setColor(0, 0, 0, 1)
-    --[[ love.graphics.print(
-        tostring(self.num),
-        math.floor(self.position.x + self.size.x / 2 + 0.5),
-        math.floor(self.position.y + self.size.x / 2 + 0.5)
-    ) ]]
     love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2, self.position.y + self.size.x / 2)
 end
 

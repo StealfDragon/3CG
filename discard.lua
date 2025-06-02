@@ -19,9 +19,11 @@ function DiscardClass:new(xPos, yPos)
 end
 
 function DiscardClass:draw()
+    -- Draws transparent red background
     love.graphics.setColor(0.58, 0, 0, 0.7)
     love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
 
+    -- Draws NOT transparent grey outline
     love.graphics.setColor(0.388, 0.388, 0.388, 1)
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)

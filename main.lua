@@ -6,7 +6,7 @@
 require "playSurface"
 
 function love.load()
-    -- window details
+    -- Window details
     love.window.setMode(1024, 720)
     love.window.setTitle("MINOS")
     background = love.graphics.newImage("assets/Jungle_Arena.png")
@@ -23,11 +23,11 @@ function love.load()
 
     math.randomseed(os.time())
     grabber = GrabberClass:new()
+    -- Keeping main really clean this time, so all layout stuff is handled by PlaySurface (I am loving how clean this main window is)
     playSurface = PlaySurfaceClass:new()
 end
 
 function love.update()
-    --grabber:update()
     playSurface:update()
 end
 
