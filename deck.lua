@@ -14,9 +14,13 @@ function DeckClass:new(xPos, yPos)
 end
 
 function DeckClass:draw()
-    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setColor(0.53, 0.55, 0.55, 0.7)
+    love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
+
+    love.graphics.setColor(0.388, 0.388, 0.388, 1)
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
+    love.graphics.setLineWidth(1)
 end
 
 function DeckClass:getNumCards()
