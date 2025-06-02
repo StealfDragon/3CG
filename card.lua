@@ -7,14 +7,13 @@ CARD_STATE = { -- stores possible card states
     IDLE = 0,
     MOUSE_OVER = 1,
     GRABBED = 2,
-    DISCARDED = 3
 }
 
 function CardClass:new(xPos, yPos, power, cost, num)
     local card = setmetatable({}, self) 
 
-    card.position = Vector(xPos, yPos)--Vector(xPos - cardWidth, yPos - cardHeight)
     card.size = Vector(cardWidth, cardHeight)
+    card.position = Vector(xPos, yPos) - (card.size * 0.5)
 
     card.num = num
     card.power = power
@@ -22,16 +21,14 @@ function CardClass:new(xPos, yPos, power, cost, num)
     card.flipped = false
     card.state = CARD_STATE.IDLE
     card.spot = nil
+    card.discarded = false
+    card.locked = false
 
     return card
 end
 
 function CardClass:update()
-    --[[ if self.state == CARD_STATE.MOUSE_OVER or CARD_STATE.GRABBED then
-        grabber:update(self)
-    else
-        grabber:update(nil)
-    end ]]
+
 end
 
 function CardClass:draw()
@@ -52,9 +49,14 @@ function CardClass:draw()
     love.graphics.setLineWidth(1)
 
     love.graphics.setColor(1, 0, 0, 1)
-    love.graphics.print(tostring(self.state), self.position.x + 10, self.position.y + 10)
+    love.graphics.print(tostring(self.state), self.position.x + 10.5, self.position.y + 10.5)
 
     love.graphics.setColor(0, 0, 0, 1)
+    --[[ love.graphics.print(
+        tostring(self.num),
+        math.floor(self.position.x + self.size.x / 2 + 0.5),
+        math.floor(self.position.y + self.size.x / 2 + 0.5)
+    ) ]]
     love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2, self.position.y + self.size.x / 2)
 end
 

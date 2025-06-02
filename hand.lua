@@ -19,7 +19,7 @@ function HandClass:new(xPos, yPos)
 end
 
 function HandClass:draw()
-    love.graphics.setColor(0.259, 0.149, 0.055, 0.9)
+    love.graphics.setColor(0.259, 0.149, 0.055, 1)
     love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
     
     love.graphics.setColor(0.388, 0.388, 0.388, 1)

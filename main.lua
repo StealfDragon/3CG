@@ -14,7 +14,7 @@ function love.load()
     sizeY = love.graphics:getHeight()
 
     defaultFont = love.graphics.getFont()
-    bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 18)
+    bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 16)
     love.graphics.setFont(bigFont)
     --love.graphics.setFont(defaultFont)
 
