@@ -23,6 +23,20 @@ function DiscardClass:draw()
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
     love.graphics.setLineWidth(1)
+
+    local defaultFont = love.graphics.getFont()
+    local bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 80)
+    love.graphics.setFont(bigFont)
+
+    love.graphics.setColor(0.388, 0.388, 0.388, 1)
+    local text = "D"
+    local textWidth = bigFont:getWidth(text)
+    local textHeight = bigFont:getHeight(text)
+    local centerX = self.position.x + (self.size.x / 2) - (textWidth / 2)
+    local centerY = self.position.y + (self.size.y / 2) - (textHeight / 2) + 5
+
+    love.graphics.print(text, centerX, centerY)
+    love.graphics.setFont(defaultFont)
 end
 
 function DiscardClass:addCard()

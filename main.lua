@@ -9,9 +9,14 @@ function love.load()
     -- window details
     love.window.setMode(1024, 720)
     love.window.setTitle("MINOS")
-    background = love.graphics.newImage("sprites/Jungle_Arena.png")
+    background = love.graphics.newImage("assets/Jungle_Arena.png")
     sizeX = love.graphics:getWidth()
     sizeY = love.graphics:getHeight()
+
+    defaultFont = love.graphics.getFont()
+    bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 18)
+    love.graphics.setFont(bigFont)
+    --love.graphics.setFont(defaultFont)
 
     cardWidth = 75.0
     cardHeight = 105.0
