@@ -29,6 +29,7 @@ function DiscardClass:draw()
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
     love.graphics.setLineWidth(1)
 
+    -- Makes greek font really big, writes a D in the center of the discard pile, sets greek font back to normal
     local defaultFont = love.graphics.getFont()
     local bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 80)
     love.graphics.setFont(bigFont)
