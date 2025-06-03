@@ -40,6 +40,7 @@ function DeckClass:makeCards()
 
 end
 
+-- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function DeckClass:getAllCards()
     return self.cards
 end

@@ -49,6 +49,7 @@ function DiscardClass:addCard()
 
 end
 
+-- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function DiscardClass:getAllCards()
     return self.cards
 end

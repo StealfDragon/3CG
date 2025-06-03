@@ -9,6 +9,7 @@ function PlaySpotClass:new(xPos, yPos)
     playSpot.type = "playSpot"
     playSpot.totalPower = 0
 
+    -- Below is organized code for card and slot storage, which stores by index instead of unconnected and difficult to swap between (in loops) lists
     playSpot.numCards = 0
     playSpot.cards = {}
     local P1Cards = {}
@@ -21,15 +22,6 @@ function PlaySpotClass:new(xPos, yPos)
     local P2CardSlots = {}
     table.insert(playSpot.cardSlots, P1CardSlots)
     table.insert(playSpot.cardSlots, P2CardSlots)
-
-    --[[ playSpot.P1NumCards = 0
-    playSpot.P1Cards = {}
-
-    playSpot.P2NumCards = 0
-    playSpot.P2Cards = {}
-
-    playSpot.P1CardSpots = {}
-    playSpot.P2CardSpots = {} ]]
 
     playSpot.lowestCard = nil
     playSpot.highestCard = nil
@@ -51,7 +43,7 @@ function PlaySpotClass:draw()
     love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
     --love.graphics.setLineWidth(1)
 
-    -- Draws enemy card spots
+    -- Draws all card slots
     love.graphics.setLineWidth(3)
     for i = 1, 2 do
         for _, pos in ipairs(self.cardSlots[i]) do
@@ -59,30 +51,13 @@ function PlaySpotClass:draw()
         end
     end
     love.graphics.setLineWidth(1)
-    --[[ -- Draws player card spots
-    for _, pos in ipairs(self.P1CardSpots) do
-        love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
-    end ]]
-    love.graphics.setLineWidth(1)
 end
 
 function PlaySpotClass:addCard(card)
-    table.insert(self.cards, card)
-
+    -- adds a card to the playspot, adds it to specifically the table of the player who called the function, and adds the card to the first available position (which is determined by checking how many cards are in the table - keeping cards at the bottom of this table will be handled in remove)
     local playerNum = card.playerNum
-
     table.insert(self.cards[playerNum], card)
     card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
-
-    --[[ if card.playerNum == 1 then
-        table.insert(self.P1Cards, card)
-        self.P1NumCards = self.P1NumCards + 1
-        card.position = self.P1CardSpots[self.P1NumCards]
-    else
-        table.insert(self.P2Cards, card)
-        self.P2NumCards = self.P2NumCards + 1
-        card.position = self.P2CardSpots[self.P2NumCards]
-    end ]]
 end
 
 function PlaySpotClass:removeCard(card)
@@ -121,6 +96,7 @@ function PlaySpotClass:makeCardSlots()
     end
 end
 
+-- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function PlaySpotClass:getAllCards()
     local all = {}
     for i = 1, 2 do

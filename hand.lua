@@ -49,6 +49,7 @@ function HandClass:reduceMana()
 
 end
 
+-- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function HandClass:getAllCards()
     return self.cards
 end

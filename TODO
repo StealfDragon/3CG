@@ -21,7 +21,14 @@ Rubric:
         ✔ Discard @done(25-06-02 20:21)
         ✔ Hand @done(25-06-02 20:21)
         ✔ 3 play locations @done(25-06-02 20:21)
-    ☐ Cards are correctly added to hand, playSpot, and discard
+    ☐ Cards are correctly added to playSpot, hand, and discard
+        ✔ playSpot:add works @done(25-06-03 05:07)
+        ☐ hand:add works
+        ☐ discard:add works
+    ☐ Cards are correctly removed from playSpot, hand, and discard
+        ☐ playSpot:remove works
+        ☐ hand:remove works
+        ☐ discard:remove works
     ☐ Cards display:
         ☐ Name
         ☐ Cost

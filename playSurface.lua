@@ -33,7 +33,6 @@ function PlaySurfaceClass:new()
     playSurface.eDiscard = DiscardClass:new(sizeX - sizeX/13, sizeY / 9, 2)
     -- NOTE: enemy discard and deck x positions flipped
 
-    -- Function to inititate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it.
     playSurface:fillCards()
 
     return playSurface
@@ -45,7 +44,7 @@ function PlaySurfaceClass:update()
     -- Checks every card to see if its state has changed, and calls grabber on any hovered card, in order to check for a grab
     local hoveredCard = nil
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards
+        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for i = #cardList, 1, -1 do
             local card = cardList[i]
             if card.state == CARD_STATE.MOUSE_OVER then
@@ -77,7 +76,7 @@ function PlaySurfaceClass:draw()
 
     -- Then drawing all cards in those "homes"
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards
+        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for _, card in ipairs(cardList) do
             if card ~= grabber.heldObject then
                 card:draw()
@@ -106,13 +105,14 @@ function PlaySurfaceClass:checkMouseMoving()
 
     -- Different check than earlier in update. checkMouseOver doesn't take any actions, its only job is to change a card's state, so this is basically a little helper loop for the "action" loop in update
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards
+        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for _, card in ipairs(cardList) do
             card:checkMouseOver(grabber)
         end
     end
 end
 
+-- Function to inititate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it.
 function PlaySurfaceClass:fillCards()
     self.card1 = CardClass:new(300, sizeY - (sizeY / 9), 1, 1, 1, 1)
     self.card2 = CardClass:new(400, sizeY - (sizeY / 9), 1, 1, 2, 1)
