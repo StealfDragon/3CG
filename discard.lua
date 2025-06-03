@@ -1,7 +1,7 @@
 DiscardClass = {}
 DiscardClass.__index = DiscardClass
 
-function DiscardClass:new(xPos, yPos)
+function DiscardClass:new(xPos, yPos, playerNum)
     local discardPile = setmetatable({}, self) 
 
     discardPile.size = Vector(cardWidth, cardHeight)
@@ -13,7 +13,7 @@ function DiscardClass:new(xPos, yPos)
     discardPile.lowestCard = nil
     discardPile.highestCard = nil
 
-    discardPile.playerNum = nil
+    discardPile.playerNum = playerNum
 
     return discardPile
 end
@@ -47,4 +47,8 @@ end
 
 function DiscardClass:addCard()
 
+end
+
+function DiscardClass:getAllCards()
+    return self.cards
 end

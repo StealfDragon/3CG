@@ -7,17 +7,29 @@ function PlaySpotClass:new(xPos, yPos)
     playSpot.size = Vector(spotWidth, spotHeight)
     playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
     playSpot.type = "playSpot"
-    playSpot.numCards = 0
-    playSpot.cards = {} -- not sure if I will end up using this, although now that I think about it, one of my "all card" loops defaults to checking objects' .cards table so I will have TODO something about that later.
     playSpot.totalPower = 0
 
-    playSpot.P1NumCards = 0
+    playSpot.numCards = 0
+    playSpot.cards = {}
+    local P1Cards = {}
+    local P2Cards = {}
+    table.insert(playSpot.cards, P1Cards)
+    table.insert(playSpot.cards, P2Cards)
+
+    playSpot.cardSlots = {}
+    local P1CardSlots = {}
+    local P2CardSlots = {}
+    table.insert(playSpot.cardSlots, P1CardSlots)
+    table.insert(playSpot.cardSlots, P2CardSlots)
+
+    --[[ playSpot.P1NumCards = 0
     playSpot.P1Cards = {}
-    playSpot.P1CardSpots = {}
 
     playSpot.P2NumCards = 0
     playSpot.P2Cards = {}
-    playSpot.P2CardSpots = {}
+
+    playSpot.P1CardSpots = {}
+    playSpot.P2CardSpots = {} ]]
 
     playSpot.lowestCard = nil
     playSpot.highestCard = nil
@@ -41,34 +53,51 @@ function PlaySpotClass:draw()
 
     -- Draws enemy card spots
     love.graphics.setLineWidth(3)
-    for _, pos in ipairs(self.P2CardSpots) do
-        love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
+    for i = 1, 2 do
+        for _, pos in ipairs(self.cardSlots[i]) do
+            love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
+        end
     end
-
-    Draws player card spots
+    love.graphics.setLineWidth(1)
+    --[[ -- Draws player card spots
     for _, pos in ipairs(self.P1CardSpots) do
         love.graphics.rectangle("line", pos.x, pos.y, cardWidth, cardHeight, 100, 6)
-    end
+    end ]]
     love.graphics.setLineWidth(1)
 end
 
-function PlaySpotClass:addCard()
+function PlaySpotClass:addCard(card)
+    table.insert(self.cards, card)
+
+    local playerNum = card.playerNum
+
+    table.insert(self.cards[playerNum], card)
+    card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
+
+    --[[ if card.playerNum == 1 then
+        table.insert(self.P1Cards, card)
+        self.P1NumCards = self.P1NumCards + 1
+        card.position = self.P1CardSpots[self.P1NumCards]
+    else
+        table.insert(self.P2Cards, card)
+        self.P2NumCards = self.P2NumCards + 1
+        card.position = self.P2CardSpots[self.P2NumCards]
+    end ]]
+end
+
+function PlaySpotClass:removeCard(card)
 
 end
 
-function PlaySpotClass:removeCard()
+function PlaySpotClass:setAllPowers(num)
 
 end
 
-function PlaySpotClass:setAllPowers()
+function PlaySpotClass:setPlayerPowers(num)
 
 end
 
-function PlaySpotClass:setPlayerPowers()
-
-end
-
-function PlaySpotClass:setEnemyPowers()
+function PlaySpotClass:setEnemyPowers(num)
 
 end
 
@@ -84,11 +113,20 @@ function PlaySpotClass:makeCardSlots()
             local pos = Vector(x, y)
 
             if i == 1 then
-                table.insert(self.P2CardSpots, pos) 
+                table.insert(self.cardSlots[2], pos) 
             else
-                table.insert(self.P1CardSpots, 1, pos)
+                table.insert(self.cardSlots[1], pos)
             end
         end
     end
 end
 
+function PlaySpotClass:getAllCards()
+    local all = {}
+    for i = 1, 2 do
+        for _, card in ipairs(self.cards[i]) do
+            table.insert(all, card)
+        end
+    end
+    return all
+end

@@ -37,10 +37,6 @@ function HandClass:removeCard()
 
 end
 
-function HandClass:getNumCards()
-
-end
-
 function HandClass:setCosts()
 
 end
@@ -51,4 +47,8 @@ end
 
 function HandClass:reduceMana()
 
+end
+
+function HandClass:getAllCards()
+    return self.cards
 end

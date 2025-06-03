@@ -50,18 +50,21 @@ end
 
 function GrabberClass:release()
     print("RELEASE - ")
-    -- NEW: some more logic stubs here
     if self.heldObject == nil then -- we have nothing to release
         return
     end
 
-    -- return the heldObject to the grabPosition
     local isValid, target = self:isValidRelease()
+    -- return the heldObject to the grabPosition
     if not isValid then
         self.heldObject.position = self.grabPos
+    else
+        target:addCard(self.heldObject)
     end
 
-    self.heldObject.state = 0 -- it's no longer grabbed
+
+    -- below line is important, because changing the card's state is what actually stops it being grabbed
+    self.heldObject.state = 0
 
     self.heldObject = nil
     self.grabPos = nil
@@ -88,7 +91,7 @@ function GrabberClass:isValidRelease()
 
     -- Checks to see if the playSpot's P1 slots are full. No need for P2 check, as the computer will never use grabber.
     if isValidReleasePos and releaseLocation.type == "playSpot" then
-        if releaseLocation.P1NumCards >= 4 then
+        if #releaseLocation.cards[1] >= 4 then
             isValidReleasePos = false
         end
     end
@@ -98,6 +101,12 @@ function GrabberClass:isValidRelease()
         if releaseLocation.playerNum ~= self.heldObject.playerNum then
             isValidReleasePos = false
         elseif #releaseLocation.cards >= 7 then
+            isValidReleasePos = false
+        end
+    end
+
+    if isValidReleasePos and releaseLocation.type == "discard" then
+        if releaseLocation.playerNum ~= self.heldObject.playerNum then
             isValidReleasePos = false
         end
     end

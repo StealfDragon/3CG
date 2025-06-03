@@ -32,14 +32,14 @@ function DeckClass:removeCard()
 
 end
 
-function DeckClass:getNumCards()
-
-end
-
 function DeckClass:shuffle()
 
 end
 
 function DeckClass:makeCards()
 
+end
+
+function DeckClass:getAllCards()
+    return self.cards
 end

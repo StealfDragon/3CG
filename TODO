@@ -17,10 +17,10 @@ Rubric:
     ✔ Background @done(25-05-26 14:52)
     ✔ Draw cards, move cards @done(25-05-31 23:22)
     ✔ Cards must be in either: @done(25-06-02 05:15)
-        ☐ Deck
-        ☐ Discard
-        ☐ Hand
-        ☐ 3 play locations
+        ✔ Deck @done(25-06-02 20:21)
+        ✔ Discard @done(25-06-02 20:21)
+        ✔ Hand @done(25-06-02 20:21)
+        ✔ 3 play locations @done(25-06-02 20:21)
     ☐ Cards are correctly added to hand, playSpot, and discard
     ☐ Cards display:
         ☐ Name
