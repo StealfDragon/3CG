@@ -9,6 +9,13 @@ CARD_STATE = { -- stores possible card states
     GRABBED = 2,
 }
 
+--[[ CARD_HOMES = {
+    NONE = 0,
+    DECK = 1,
+    HAND = 2,
+    PLAY_SPOT = 3,
+} ]]
+
 function CardClass:new(xPos, yPos, power, cost, num, playerNum)
     local card = setmetatable({}, self) 
 
@@ -20,7 +27,8 @@ function CardClass:new(xPos, yPos, power, cost, num, playerNum)
     card.cost = cost
     card.flipped = false
     card.state = CARD_STATE.IDLE
-    card.spot = nil
+    -- card.homeType = 0
+    card.home = nil
     card.discarded = false
     card.locked = false
     card.playerNum = playerNum
@@ -36,7 +44,7 @@ function CardClass:draw()
     -- Draws green outline when card is hovered over or picked up
     if self.state ~= CARD_STATE.IDLE then
         love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
-        local offset = 7
+        local offset = 6
         local halfOffset = offset / 2.0
 
         love.graphics.rectangle("fill", self.position.x - halfOffset, self.position.y - halfOffset, self.size.x + offset, self.size.y + offset, 100, 6)
@@ -54,11 +62,11 @@ function CardClass:draw()
 
     -- Temp drawing to keep track of state, but that works pretty well, so TODO is to remove soon
     love.graphics.setColor(1, 0, 0, 1)
-    love.graphics.print(tostring(self.state), self.position.x + 10.5, self.position.y + 10.5)
+    love.graphics.print(tostring(self.state), self.position.x + 10, self.position.y + 10)
 
     -- Temp drawing to keep track of card num, but that will be overhauled as soon as I get past the main gameplay mechanics, and onto making the cards look and act like CCG cards
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2, self.position.y + self.size.x / 2)
+    love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2 - 0.5, self.position.y + self.size.x / 2 - 0.5)
 end
 
 function CardClass:checkMouseOver(grabber)
@@ -93,4 +101,8 @@ end
 
 function CardClass:discard()
 
+end
+
+function CardClass:setHome()
+    
 end

@@ -59,6 +59,9 @@ function GrabberClass:release()
     if not isValid then
         self.heldObject.position = self.grabPos
     else
+        if self.heldObject.home.type ~= "nil" then
+            self.heldObject.home:removeCard(self.heldObject)
+        end
         target:addCard(self.heldObject)
     end
 

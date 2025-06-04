@@ -58,10 +58,31 @@ function PlaySpotClass:addCard(card)
     local playerNum = card.playerNum
     table.insert(self.cards[playerNum], card)
     card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
+    card.home = self
 end
 
+-- this function removes a card from the playSpot, and handles the positioning of the other cards accordingly
 function PlaySpotClass:removeCard(card)
+    local playerNum = card.playerNum
+    local cardList = self.cards[playerNum]
+    local indexToRemove = nil
 
+    for i, c in ipairs(cardList) do
+        if c == card then
+            indexToRemove = i
+            break
+        end
+    end
+
+    if indexToRemove then
+        table.remove(cardList, indexToRemove)
+
+        for i = indexToRemove, #cardList do
+            cardList[i].position = self.cardSlots[playerNum][i]
+        end
+    end
+    
+    card.home = nil
 end
 
 function PlaySpotClass:setAllPowers(num)

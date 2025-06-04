@@ -114,15 +114,20 @@ end
 
 -- Function to inititate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it.
 function PlaySurfaceClass:fillCards()
-    self.card1 = CardClass:new(300, sizeY - (sizeY / 9), 1, 1, 1, 1)
-    self.card2 = CardClass:new(400, sizeY - (sizeY / 9), 1, 1, 2, 1)
-    self.card3 = CardClass:new(500, sizeY - (sizeY / 9), 1, 1, 3, 1)
-    self.card4 = CardClass:new(600, sizeY - (sizeY / 9), 1, 1, 4, 1)
+    local card1 = CardClass:new(300, sizeY - (sizeY / 9), 1, 1, 1, 1)
+    local card2 = CardClass:new(400, sizeY - (sizeY / 9), 1, 1, 2, 1)
+    local card3 = CardClass:new(500, sizeY - (sizeY / 9), 1, 1, 3, 1)
+    local card4 = CardClass:new(600, sizeY - (sizeY / 9), 1, 1, 4, 1)
 
-    table.insert(self.pHand.cards, self.card1)
+    --[[ table.insert(self.pHand.cards, self.card1)
     table.insert(self.pHand.cards, self.card2)
     table.insert(self.pHand.cards, self.card3)
-    table.insert(self.pHand.cards, self.card4)
+    table.insert(self.pHand.cards, self.card4) ]]
+
+    self.pHand:addCard(card1)
+    self.pHand:addCard(card2)
+    self.pHand:addCard(card3)
+    self.pHand:addCard(card4)
 
     table.insert(self.cardHomes, self.playSpot1)
     table.insert(self.cardHomes, self.playSpot2)

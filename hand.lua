@@ -4,7 +4,7 @@ HandClass.__index = HandClass
 function HandClass:new(xPos, yPos, playerNum)
     local hand = setmetatable({}, self) 
 
-    hand.size = Vector(cardWidth * 9, cardHeight * 1.2)
+    hand.size = Vector(cardWidth * 8, cardHeight * 1.2)
     hand.position = Vector(xPos, yPos) - (hand.size * 0.5)
     hand.type = "hand"
 
@@ -29,12 +29,31 @@ function HandClass:draw()
     love.graphics.setLineWidth(1)
 end
 
-function HandClass:addCard()
-
+function HandClass:addCard(card)
+    table.insert(self.cards, card)
+    card.position = self.position + Vector(25 + ((#self.cards - 1) * 80), cardHeight * 0.1)
+    card.home = self
 end
 
-function HandClass:removeCard()
+function HandClass:removeCard(card)
+    local indexToRemove = nil
 
+    for i, c in ipairs(self.cards) do
+        if c == card then
+            indexToRemove = i
+            break
+        end
+    end
+
+    if indexToRemove then
+        table.remove(self.cards, indexToRemove)
+
+        for i = indexToRemove, #self.cards do
+            self.cards[i].position = self.position + Vector(25 + ((i - 1) * 80), cardHeight * 0.1)
+        end
+    end
+    
+    card.home = nil
 end
 
 function HandClass:setCosts()
