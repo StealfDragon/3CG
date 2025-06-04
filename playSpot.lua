@@ -7,7 +7,14 @@ function PlaySpotClass:new(xPos, yPos)
     playSpot.size = Vector(spotWidth, spotHeight)
     playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
     playSpot.type = "playSpot"
+
+    -- Below is organized code for storing player and enemy powers
     playSpot.totalPower = 0
+    playSpot.playersPowers = {}
+    local P1Power = 0
+    local P2Power = 0
+    table.insert(playSpot.playersPowers, P1Power)
+    table.insert(playSpot.playersPowers, P2Power)
 
     -- Below is organized code for card and slot storage, which stores by index instead of unconnected and difficult to swap between (in loops) lists
     playSpot.numCards = 0
@@ -32,7 +39,6 @@ function PlaySpotClass:new(xPos, yPos)
 end
 
 function PlaySpotClass:draw()
-    --love.graphics.setColor(0.53, 0.55, 0.55, 0.2)
     -- Draws brown background
     love.graphics.setColor(0.259, 0.149, 0.055, 0.9)
     love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 6, 6)
@@ -59,6 +65,8 @@ function PlaySpotClass:addCard(card)
     table.insert(self.cards[playerNum], card)
     card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
     card.home = self
+    self.totalPower = self.totalPower + card.power
+    self.playersPowers[playerNum] = self.playersPowers[playerNum] + card.power
 end
 
 -- this function removes a card from the playSpot, and handles the positioning of the other cards accordingly
@@ -83,6 +91,9 @@ function PlaySpotClass:removeCard(card)
     end
     
     card.home = nil
+
+    self.totalPower = self.totalPower - card.power
+    self.playersPowers[playerNum] = self.playersPowers[playerNum] - card.power
 end
 
 function PlaySpotClass:setAllPowers(num)
@@ -95,6 +106,18 @@ end
 
 function PlaySpotClass:setEnemyPowers(num)
 
+end
+
+function PlaySpotClass:getAllPowers(num)
+    return self.totalPower
+end
+
+function PlaySpotClass:getPlayerPowers()
+    return self.playersPowers[1]
+end
+
+function PlaySpotClass:getEnemyPowers()
+    return self.playersPowers[2]
 end
 
 function PlaySpotClass:makeCardSlots()
@@ -126,4 +149,19 @@ function PlaySpotClass:getAllCards()
         end
     end
     return all
+end
+
+function PlaySpotClass:getCenterPos()
+    local center = self.position + (self.size * 0.5)
+    return center
+end
+
+function PlaySpotClass:getCenterX()
+    local center = self.position + (self.size * 0.5)
+    return center.x
+end
+
+function PlaySpotClass:getCenterY()
+    local center = self.position + (self.size * 0.5)
+    return center.y
 end

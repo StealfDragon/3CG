@@ -29,15 +29,14 @@ Rubric:
         ☐ playSpot:remove works
         ☐ hand:remove works
         ☐ discard:remove works
-    ☐ Cards display:
+    ✔ Cards display: @done(25-06-04 01:17)
         ☐ Name
         ☐ Cost
         ☐ Power
         ☐ Text
-    ☐ Add locations for text
+    ✔ Add locations for text @done(25-06-04 16:49)
         ☐ Total power per location
         ☐ Total points per player
-        ☐ Play again button (allowed to do later if placing in center)
     ☐ Submit button
         ☐ Flips cards face down
         ☐ Play's AI's cards face down (randomly)

@@ -36,37 +36,6 @@ function CardClass:update()
 end
 
 function CardClass:draw()
-    --[[ -- Draws green outline when card is hovered over or picked up
-    if self.state ~= CARD_STATE.IDLE then
-        love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
-        local offset = 6
-        local halfOffset = offset / 2.0
-
-        love.graphics.rectangle("fill", self.position.x - halfOffset, self.position.y - halfOffset, self.size.x + offset, self.size.y + offset, 100, 6)
-    end
-    
-    -- Draws parchment-colored background
-    love.graphics.setColor(0.9, 0.89, 0.83, 1)
-    love.graphics.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
-
-    -- Draws grey outline
-    love.graphics.setColor(0.388, 0.388, 0.388, 1)
-    love.graphics.setLineWidth(2)
-    love.graphics.rectangle("line", self.position.x, self.position.y, self.size.x, self.size.y, 100, 6)
-    love.graphics.setLineWidth(1)
-
-    -- Temp drawing to keep track of state, but that works pretty well, so TODO is to remove soon
-    love.graphics.setColor(1, 0, 0, 1)
-    love.graphics.print(tostring(self.state), self.position.x + 10, self.position.y + 10)
-
-    -- Temp drawing to keep track of card num, but that will be overhauled as soon as I get past the main gameplay mechanics, and onto making the cards look and act like CCG cards
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2 - 0.5, self.position.y + self.size.x / 2 - 0.5)
-
-    love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print(self.name, self.position.x + 5, self.position.y + 5)
-    love.graphics.print(self.text, self.position.x + 5, self.position.y + 25) ]]
-
     local x = math.floor(self.position.x + 0.5)
     local y = math.floor(self.position.y + 0.5)
     local w = self.size.x
@@ -80,11 +49,11 @@ function CardClass:draw()
         love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
     end
 
-    -- Background
+    -- Draws parchment-colored background
     love.graphics.setColor(0.9, 0.89, 0.83, 1)
     love.graphics.rectangle("fill", x, y, w, h, 100, 6)
 
-    -- Border
+    -- Draws grey outline
     love.graphics.setColor(0.388, 0.388, 0.388, 1)
     love.graphics.setLineWidth(2)
     love.graphics.rectangle("line", x, y, w, h, 100, 6)
@@ -139,6 +108,7 @@ function CardClass:drawText(x, y, w, h)
     local cost = tostring(self.cost or "")
 
     local padding = 8
+    local bodyPadding = 3
     local contentWidth = w - 2 * padding
 
     local titleMaxSize = 18
@@ -189,12 +159,14 @@ function CardClass:drawText(x, y, w, h)
     love.graphics.setFont(bodyFont)
     love.graphics.setColor(0, 0, 0, 1)
 
-    local _, wrappedLines = bodyFont:getWrap(text, contentWidth)
+    --local _, wrappedLines = bodyFont:getWrap(text, contentWidth)
+    local bodyWidth = w - 2 * bodyPadding
+    local _, wrappedLines = bodyFont:getWrap(text, bodyWidth)
     local lineHeight = bodyFont:getHeight()
     local maxLines = math.floor(descHeight / lineHeight)
 
     for i = 1, math.min(#wrappedLines, maxLines) do
         local line = wrappedLines[i]
-        love.graphics.print(line, math.floor(x + padding + 0.5), math.floor(bodyY + (i - 1) * lineHeight + 0.5))
+        love.graphics.print(line, math.floor(x + bodyPadding + 0.5), math.floor(bodyY + (i - 1) * lineHeight + 0.5))
     end
 end
