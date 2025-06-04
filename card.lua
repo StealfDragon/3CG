@@ -36,7 +36,7 @@ function CardClass:update()
 end
 
 function CardClass:draw()
-    -- Draws green outline when card is hovered over or picked up
+    --[[ -- Draws green outline when card is hovered over or picked up
     if self.state ~= CARD_STATE.IDLE then
         love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
         local offset = 6
@@ -62,6 +62,36 @@ function CardClass:draw()
     -- Temp drawing to keep track of card num, but that will be overhauled as soon as I get past the main gameplay mechanics, and onto making the cards look and act like CCG cards
     love.graphics.setColor(0, 0, 0, 1)
     love.graphics.print(tostring(self.num), self.position.x + self.size.x / 2 - 0.5, self.position.y + self.size.x / 2 - 0.5)
+
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print(self.name, self.position.x + 5, self.position.y + 5)
+    love.graphics.print(self.text, self.position.x + 5, self.position.y + 25) ]]
+
+    local x = math.floor(self.position.x + 0.5)
+    local y = math.floor(self.position.y + 0.5)
+    local w = self.size.x
+    local h = self.size.y
+
+    -- Highlight if hovered or grabbed
+    if self.state ~= CARD_STATE.IDLE then
+        love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
+        local offset = 6
+        local halfOffset = offset / 2
+        love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
+    end
+
+    -- Background
+    love.graphics.setColor(0.9, 0.89, 0.83, 1)
+    love.graphics.rectangle("fill", x, y, w, h, 100, 6)
+
+    -- Border
+    love.graphics.setColor(0.388, 0.388, 0.388, 1)
+    love.graphics.setLineWidth(2)
+    love.graphics.rectangle("line", x, y, w, h, 100, 6)
+    love.graphics.setLineWidth(1)
+
+    -- Draw the card's text content
+    self:drawText(x, y, w, h)
 end
 
 function CardClass:checkMouseOver(grabber)
@@ -100,4 +130,71 @@ end
 
 function CardClass:setHome()
     
+end
+
+function CardClass:drawText(x, y, w, h)
+    local name = self.name or ""
+    local text = self.text or ""
+    local power = tostring(self.power or "")
+    local cost = tostring(self.cost or "")
+
+    local padding = 8
+    local contentWidth = w - 2 * padding
+
+    local titleMaxSize = 18
+    local titleMinSize = 12
+    local minSize = 9
+    local powerFontSize = 16
+    local bodyFontSize = 12
+
+    local powerFont = love.graphics.newFont("assets/Greek-Freak.ttf", powerFontSize)
+    powerFont:setFilter("nearest", "nearest")
+    local bodyFont = love.graphics.newFont(minSize)
+    bodyFont:setFilter("nearest", "nearest")
+
+    -- === Draw Title (Always One Line, Shrunk if Needed) ===
+    local titleFont = love.graphics.newFont("assets/Greek-Freak.ttf", titleMaxSize)
+    love.graphics.setFont(titleFont)
+    titleFont:setFilter("nearest", "nearest")
+
+    local titleWidth = titleFont:getWidth(name)
+    while titleWidth > contentWidth and titleFont:getHeight() > titleMinSize do
+        local newSize = titleFont:getHeight() - 1
+        titleFont = love.graphics.newFont("assets/Greek-Freak.ttf", newSize)
+        love.graphics.setFont(titleFont)
+        titleWidth = titleFont:getWidth(name)
+    end
+
+    local titleY = y + padding
+    local titleX = x + (w - titleWidth) / 2
+
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print(name, math.floor(titleX + 0.5), math.floor(titleY + 0.5))
+
+    -- === Draw Power and Cost ===
+    local statY = y + h * 0.25  -- Constant Y, above halfway
+    love.graphics.setFont(powerFont)
+
+    love.graphics.setColor(0.8, 0, 0, 1)
+    love.graphics.printf(power, x + padding, statY, contentWidth, "left")
+
+    --love.graphics.setColor(0.4, 0.6, 1, 1)
+    love.graphics.setColor(0.3, 0.7, 0.9, 1)
+    love.graphics.printf(cost, x + padding, statY, contentWidth, "right")
+
+    -- === Draw Description Text ===
+    local bodyY = y + h * 0.4
+    local descHeight = h - (bodyY - y) - padding
+
+    love.graphics.setFont(bodyFont)
+    love.graphics.setColor(0, 0, 0, 1)
+
+    local _, wrappedLines = bodyFont:getWrap(text, contentWidth)
+    local lineHeight = bodyFont:getHeight()
+    local maxLines = math.floor(descHeight / lineHeight)
+
+    for i = 1, math.min(#wrappedLines, maxLines) do
+        local line = wrappedLines[i]
+        love.graphics.print(line, math.floor(x + padding + 0.5), math.floor(bodyY + (i - 1) * lineHeight + 0.5))
+    end
 end
