@@ -1,9 +1,8 @@
 SpecialCardClass = setmetatable({}, {__index = CardClass})
 SpecialCardClass.__index = SpecialCardClass
 
-function SpecialCardClass:new(xPos, yPos, power, cost, text)
-    local specialCard = CardClass:new(self, xPos, yPos, power, cost)
-    specialCard.text = text
+function SpecialCardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
+    local specialCard = CardClass:new(self, playerNum, xPos, yPos, power, cost, name, text, num)
 
     return specialCard
 end

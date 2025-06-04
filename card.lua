@@ -9,29 +9,24 @@ CARD_STATE = { -- stores possible card states
     GRABBED = 2,
 }
 
---[[ CARD_HOMES = {
-    NONE = 0,
-    DECK = 1,
-    HAND = 2,
-    PLAY_SPOT = 3,
-} ]]
-
-function CardClass:new(xPos, yPos, power, cost, num, playerNum)
+function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
     local card = setmetatable({}, self) 
 
     card.size = Vector(cardWidth, cardHeight)
     card.position = Vector(xPos, yPos) - (card.size * 0.5)
 
-    card.num = num
+    card.playerNum = playerNum
     card.power = power
     card.cost = cost
+    card.num = num
+    card.name = name or ""
+    card.text = text or ""
+
     card.flipped = false
     card.state = CARD_STATE.IDLE
-    -- card.homeType = 0
     card.home = nil
     card.discarded = false
     card.locked = false
-    card.playerNum = playerNum
 
     return card
 end

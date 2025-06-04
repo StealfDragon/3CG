@@ -12,6 +12,7 @@ function HandClass:new(xPos, yPos, playerNum)
     hand.lastPlayed = nil
     hand.lowestCard = nil
     hand.highestCard = nil
+    -- realized I don't need a player object because I can just make two hand objects and store the player info/methods in each hand
     hand.mana = 0
     hand.extraMana = 0
     hand.playerNum = playerNum

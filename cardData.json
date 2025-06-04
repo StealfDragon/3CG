@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Wooden Cow",
+    "cost": 1,
+    "power": 1,
+    "text": "Throw it if you dare.",
+    "type": "Vanilla"
+  },
+  {
+    "name": "Pegasus",
+    "cost": 3,
+    "power": 5,
+    "text": "A horse that can... fly?",
+    "type": "Vanilla"
+  },
+  {
+    "name": "Minotaur",
+    "cost": 5,
+    "power": 9,
+    "text": "Beware his mighty horns!",
+    "type": "Vanilla"
+  },
+  {
+    "name": "Titan",
+    "cost": 6,
+    "power": 12,
+    "text": "Behold their unfathomably ancient power!",
+    "type": "Vanilla"
+  }
+]

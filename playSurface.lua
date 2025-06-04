@@ -84,14 +84,6 @@ function PlaySurfaceClass:draw()
         end
     end
 
-    --[[ if home.type == "playSpot" and card ~= grabber.heldObject then
-                for i, v in ipairs(card) do
-                    v:draw()
-                end
-            elseif card ~= grabber.heldObject then
-                card:draw()
-            end ]]
-
     -- Draws the held object on top of everything else so that it's never under anything while being moved
     if grabber.heldObject then
         grabber.heldObject:draw()
@@ -114,20 +106,25 @@ end
 
 -- Function to inititate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it.
 function PlaySurfaceClass:fillCards()
-    local card1 = CardClass:new(300, sizeY - (sizeY / 9), 1, 1, 1, 1)
-    local card2 = CardClass:new(400, sizeY - (sizeY / 9), 1, 1, 2, 1)
-    local card3 = CardClass:new(500, sizeY - (sizeY / 9), 1, 1, 3, 1)
-    local card4 = CardClass:new(600, sizeY - (sizeY / 9), 1, 1, 4, 1)
+    local json = require("dkjson")
+    local file = love.filesystem.read("cardData.json")
+    local data = json.decode(file)
 
-    --[[ table.insert(self.pHand.cards, self.card1)
-    table.insert(self.pHand.cards, self.card2)
-    table.insert(self.pHand.cards, self.card3)
-    table.insert(self.pHand.cards, self.card4) ]]
+    for i, entry in ipairs(data) do
+        local card
+        local playerNum = 1 -- or 2 depending on use
 
-    self.pHand:addCard(card1)
-    self.pHand:addCard(card2)
-    self.pHand:addCard(card3)
-    self.pHand:addCard(card4)
+        local isSpecial = (entry.type ~= "Vanilla")
+
+        if isSpecial then
+            card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
+        else
+            card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
+            --card.text = entry.text
+        end
+
+        self.pHand:addCard(card)
+    end
 
     table.insert(self.cardHomes, self.playSpot1)
     table.insert(self.cardHomes, self.playSpot2)
