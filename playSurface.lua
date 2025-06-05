@@ -54,7 +54,7 @@ function PlaySurfaceClass:new()
     -- Make play manager and submit button
     playSurface.playMan = PlayManClass:new()
     local pHandXY = playSurface.pHand:getCenterPos()
-    playSurface.submitButton = ButtonClass:new(pHandXY.x, pHandXY.y - (90), "Submit", playSurface.playMan:playerTurn())
+    playSurface.submitButton = ButtonClass:new(pHandXY.x, pHandXY.y - (playSurface.pHand:getSizeY() * 0.7), "Submit", playSurface.playMan:playerTurn())
 
     playSurface:fillCards()
 
@@ -174,16 +174,23 @@ function PlaySurfaceClass:fillCards()
 end
 
 function PlaySurfaceClass:drawHexagons()
-    --[[ self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.2)))
-    self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() + (self.pHand:getSizeY() * 0.2)))
- ]]
     -- Drawing player points and mana hexagons to right of hand
+    self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() - (self.pHand:getSizeX() * 0.16) + 0.5, self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.7)))
+    self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.16) - 0.5, self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.7)))
+
+
+    -- Drawing enemy points and mana hexagons to right of hand
+    self.ePointsHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
+    self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() + (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
+
+    -- Comment below is the old positioning for the player/enemy points/mana hexagons
+    --[[ -- Drawing player points and mana hexagons to right of hand
     self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.2)))
     self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() + (self.pHand:getSizeY() * 0.2)))
     
     -- Drawing enemy points and mana hexagons to right of hand
     self.ePointsHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.58), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.2)))
-    self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.58), self.eHand:getCenterY() - (self.eHand:getSizeY() * 0.2)))
+    self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.58), self.eHand:getCenterY() - (self.eHand:getSizeY() * 0.2))) ]]
 
     -- Drawing player points per playSpot below each playSpot
     self.pPS1Hex = Vector(PlaySurfaceClass:drawHex(self.playSpot1:getCenterX(), self.playSpot1:getCenterY() + (spotHeight * 0.6)))
@@ -229,7 +236,7 @@ function PlaySurfaceClass:drawNums()
 
     -- Draws player power at playSpot 2
     text, drawX, drawY = self:drawNumsHelper(self.playSpot2:getPlayerPowers(), self.pPS2Hex)
-    love.graphics.print(text, drawX, drawY)
+    love.graphics.print(text, drawX + 0.5, drawY)
 
     -- Draws player power at playSpot 3
     text, drawX, drawY = self:drawNumsHelper(self.playSpot3:getPlayerPowers(), self.pPS3Hex)
@@ -241,7 +248,7 @@ function PlaySurfaceClass:drawNums()
 
     -- Draws enemy power at playSpot 2
     text, drawX, drawY = self:drawNumsHelper(self.playSpot2:getEnemyPowers(), self.ePS2Hex)
-    love.graphics.print(text, drawX, drawY)
+    love.graphics.print(text, drawX + 0.5, drawY)
 
     -- Draws enemy power at playSpot 3
     text, drawX, drawY = self:drawNumsHelper(self.playSpot3:getEnemyPowers(), self.ePS3Hex)
