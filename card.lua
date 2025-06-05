@@ -22,7 +22,7 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
     card.name = name or ""
     card.text = text or ""
 
-    card.flipped = false
+    card.faceDown = true
     card.state = CARD_STATE.IDLE
     card.home = nil
     card.discarded = false
@@ -41,26 +41,55 @@ function CardClass:draw()
     local w = self.size.x
     local h = self.size.y
 
-    -- Highlight if hovered or grabbed
-    if self.state ~= CARD_STATE.IDLE then
-        love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
-        local offset = 6
-        local halfOffset = offset / 2
-        love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
+    if not self.faceDown then
+        -- Highlight if hovered or grabbed
+        if self.state ~= CARD_STATE.IDLE then
+            love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
+            local offset = 6
+            local halfOffset = offset / 2
+            love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
+        end
+
+        -- Draws parchment-colored background
+        love.graphics.setColor(0.9, 0.89, 0.83, 1)
+        love.graphics.rectangle("fill", x, y, w, h, 100, 6)
+
+        -- Draws grey outline
+        love.graphics.setColor(0.388, 0.388, 0.388, 1)
+        love.graphics.setLineWidth(2)
+        love.graphics.rectangle("line", x, y, w, h, 100, 6)
+        love.graphics.setLineWidth(1)
+
+        -- Draw the card's text content
+        self:drawText(x, y, w, h)
+    elseif not self.locked then
+        love.graphics.setColor(0.388, 0.388, 0.388, 1)
+        love.graphics.rectangle("fill", x, y, w, h, 100, 6)
+
+        love.graphics.setLineWidth(3)
+        love.graphics.setColor(0.25, 0.25, 0.25, 1)
+        love.graphics.rectangle("line", x, y, w, h, 100, 6)
+        love.graphics.setLineWidth(2)
+
+        local defaultFont = love.graphics.getFont()
+        local bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 80)
+        love.graphics.setFont(bigFont)
+
+        local text = "m"
+        local textWidth = bigFont:getWidth(text)
+        local textHeight = bigFont:getHeight(text)
+        local centerX = self.position.x + (self.size.x / 2) - (textWidth / 2)
+        local centerY = self.position.y + (self.size.y / 2) - (textHeight / 2) + 5
+
+        love.graphics.setColor(0, 0, 0, 1)
+        love.graphics.print(text, centerX + 3, centerY + 3)
+
+        love.graphics.setColor(1, 0.878, 0.008, 1)
+        love.graphics.print(text, centerX - 1, centerY - 1)
+        love.graphics.setFont(defaultFont)
     end
 
-    -- Draws parchment-colored background
-    love.graphics.setColor(0.9, 0.89, 0.83, 1)
-    love.graphics.rectangle("fill", x, y, w, h, 100, 6)
 
-    -- Draws grey outline
-    love.graphics.setColor(0.388, 0.388, 0.388, 1)
-    love.graphics.setLineWidth(2)
-    love.graphics.rectangle("line", x, y, w, h, 100, 6)
-    love.graphics.setLineWidth(1)
-
-    -- Draw the card's text content
-    self:drawText(x, y, w, h)
 end
 
 function CardClass:checkMouseOver(grabber)

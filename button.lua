@@ -15,6 +15,7 @@ function ButtonClass:new(x, y, text, onClick)
 
     button.hovered = false
     button.pressed = false
+    button.beenPressed = false
 
     return button
 end
@@ -22,13 +23,14 @@ end
 function ButtonClass:update(mouseX, mouseY)
     self.hovered = self:isMouseOver()
 
-    if love.mouse.isDown(1) and self:isMouseOver(x, y) and grabber.heldObject == nil then
+    if love.mouse.isDown(1) and self:isMouseOver(x, y) and grabber.heldObject == nil and not self.beenPressed then
         self.pressed = true
     end
 
     if not love.mouse.isDown(1) and self.pressed and self:isMouseOver(x, y) then
         self.onClick()
         self.pressed = false
+        self.beenPressed = true
     end
 end
 
@@ -52,7 +54,7 @@ function ButtonClass:draw()
     love.graphics.setLineWidth(2)
     if self.pressed then
         love.graphics.setColor(0, 0, 0)
-    elseif self.hovered then
+    elseif self.hovered and not self.beenPressed then
         love.graphics.setColor(0.16, 0.89, 0.184)
     else
         love.graphics.setColor(0.388, 0.388, 0.388)
