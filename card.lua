@@ -62,7 +62,7 @@ function CardClass:draw()
 
         -- Draw the card's text content
         self:drawText(x, y, w, h)
-    elseif not self.locked then
+    else
         love.graphics.setColor(0.388, 0.388, 0.388, 1)
         love.graphics.rectangle("fill", x, y, w, h, 100, 6)
 
