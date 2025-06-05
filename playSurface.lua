@@ -6,6 +6,8 @@ require "hand"
 require "deck"
 require "playSpot"
 require "discard"
+require "playManager"
+require "button"
 
 PlaySurfaceClass = {}
 PlaySurfaceClass.__index = PlaySurfaceClass
@@ -49,6 +51,11 @@ function PlaySurfaceClass:new()
     playSurface.ePS2Hex = nil
     playSurface.ePS3Hex = nil
 
+    -- Make play manager and submit button
+    playSurface.playMan = PlayManClass:new()
+    local pHandXY = playSurface.pHand:getCenterPos()
+    playSurface.submitButton = ButtonClass:new(pHandXY.x, pHandXY.y - (90), "Submit", playSurface.playMan:playerTurn())
+
     playSurface:fillCards()
 
     return playSurface
@@ -74,6 +81,8 @@ function PlaySurfaceClass:update()
     end
 
     grabber:update(hoveredCard)
+
+    self.submitButton:update()
 end
 
 function PlaySurfaceClass:draw()
@@ -82,6 +91,9 @@ function PlaySurfaceClass:draw()
 
     -- Drawing nums that go in the hexagons
     self:drawNums()
+
+    -- Drawing submit button
+    self.submitButton:draw()
     
     -- Drawing all visible card "homes"
     self.playSpot1:draw()
@@ -162,6 +174,9 @@ function PlaySurfaceClass:fillCards()
 end
 
 function PlaySurfaceClass:drawHexagons()
+    --[[ self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.2)))
+    self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() + (self.pHand:getSizeY() * 0.2)))
+ ]]
     -- Drawing player points and mana hexagons to right of hand
     self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.2)))
     self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() + (self.pHand:getSizeY() * 0.2)))

@@ -1,7 +1,7 @@
 SpecialCardClass = setmetatable({}, {__index = CardClass})
 SpecialCardClass.__index = SpecialCardClass
 
-function SpecialCardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
+function SpecialCardClass:new(playerNum, xPos, yPos, power, cost, name, text, num, onClick)
     local specialCard = CardClass:new(self, playerNum, xPos, yPos, power, cost, name, text, num)
 
     return specialCard
@@ -20,7 +20,7 @@ function SpecialCardClass:getPower()
 end
 
 function SpecialCardClass:activateAbility()
-
+    self.onClick()
 end
 
 function SpecialCardClass:moveLocation()
