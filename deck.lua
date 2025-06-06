@@ -20,11 +20,11 @@ end
 function DeckClass:update()
     self.hovered = self:isMouseOver()
 
-    if love.mouse.isDown(1) and self:isMouseOver(x, y) and grabber.heldObject == nil and not self.beenPressed then
+    if love.mouse.isDown(1) and self.hovered and grabber.heldObject == nil and not self.beenPressed then
         
     end
 
-    if not love.mouse.isDown(1) and self.pressed and self:isMouseOver(x, y) then
+    if not love.mouse.isDown(1) and self.pressed and self.hovered then
         
     end
 end
