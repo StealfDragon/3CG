@@ -16,7 +16,7 @@ function PlayManClass:initiateGame()
 end
 
 function PlayManClass:playerTurn()
-
+    
 end
 
 function PlayManClass:botTurn()

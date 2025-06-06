@@ -34,17 +34,6 @@ function ButtonClass:update(mouseX, mouseY)
     end
 end
 
-function ButtonClass:isMouseOver()
-    local mousePos = grabber.currentMousePos
-    local isMouseOver = 
-        mousePos.x > self.position.x and
-        mousePos.x < self.position.x + self.size.x and
-        mousePos.y > self.position.y and
-        mousePos.y < self.position.y + self.size.y
-
-    return isMouseOver
-end
-
 function ButtonClass:draw()
     -- Background
     love.graphics.setColor(0.46, 0.46, 0.46)
@@ -70,4 +59,15 @@ function ButtonClass:draw()
     local tx = self.position.x + (self.width - textWidth) / 2
     local ty = self.position.y + (self.height - textHeight) / 2
     love.graphics.print(self.text, math.floor(tx + 0.5), math.floor(ty + 0.5))
+end
+
+function ButtonClass:isMouseOver()
+    local mousePos = grabber.currentMousePos
+    local isMouseOver = 
+        mousePos.x > self.position.x and
+        mousePos.x < self.position.x + self.size.x and
+        mousePos.y > self.position.y and
+        mousePos.y < self.position.y + self.size.y
+
+    return isMouseOver
 end
