@@ -24,7 +24,9 @@ function love.load()
     math.randomseed(os.time())
     grabber = GrabberClass:new()
     -- Keeping main really clean this time, so all layout stuff is handled by PlaySurface
+    playMan = PlayManClass:new()
     playSurface = PlaySurfaceClass:new()
+    --playMan = PlayManClass:new()
 end
 
 function love.update()

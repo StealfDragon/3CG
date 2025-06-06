@@ -41,7 +41,7 @@ function PlaySurfaceClass:new()
     playSurface.pManaHex = nil
     
     playSurface.ePointsHex = nil
-    playSurface.pManaHex = nil
+    playSurface.eManaHex = nil
 
     playSurface.pPS1Hex = nil
     playSurface.pPS2Hex = nil
@@ -51,10 +51,14 @@ function PlaySurfaceClass:new()
     playSurface.ePS2Hex = nil
     playSurface.ePS3Hex = nil
 
-    -- Make play manager and submit button
-    playSurface.playMan = PlayManClass:new()
+    -- Make submit button
     local pHandXY = playSurface.pHand:getCenterPos()
-    playSurface.submitButton = ButtonClass:new(pHandXY.x, pHandXY.y - (playSurface.pHand:getSizeY() * 0.7), "Submit", playSurface.playMan:playerTurn())
+    playSurface.submitButton = ButtonClass:new(
+        pHandXY.x, 
+        pHandXY.y - (playSurface.pHand:getSizeY() * 0.7), 
+        "Submit", 
+        function() playMan:playerTurn() end
+    )
 
     playSurface:fillCards()
 
@@ -223,7 +227,7 @@ function PlaySurfaceClass:drawNums()
 
 
     -- The power per player at each location is drawn below
-    love.graphics.setColor(0.8, 0, 0, 1)
+    love.graphics.setColor(1, 0, 0, 1)
     -- Draws player power at playSpot 1
     text, drawX, drawY = self:drawNumsHelper(self.playSpot1:getPlayerPowers(), self.pPS1Hex)
     love.graphics.print(text, drawX, drawY)

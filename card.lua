@@ -27,6 +27,9 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
     card.home = nil
     card.discarded = false
     card.locked = false
+    if playerNum == 2 then
+        card.locked = true
+    end
 
     return card
 end
@@ -43,7 +46,7 @@ function CardClass:draw()
 
     if not self.faceDown then
         -- Highlight if hovered or grabbed
-        if self.state ~= CARD_STATE.IDLE then
+        if self.state ~= CARD_STATE.IDLE and not self.locked then
             love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
             local offset = 6
             local halfOffset = offset / 2
@@ -164,7 +167,7 @@ function CardClass:drawText(x, y, w, h)
     local statY = y + h * 0.25  -- Constant Y, above halfway
     love.graphics.setFont(powerFont)
 
-    love.graphics.setColor(0.8, 0, 0, 1)
+    love.graphics.setColor(0.9, 0, 0, 1)
     love.graphics.printf(power, x + padding, statY, contentWidth, "left")
 
     --love.graphics.setColor(0.4, 0.6, 1, 1)

@@ -15,17 +15,50 @@ function PlayManClass:initiateGame()
 
 end
 
-function PlayManClass:playerTurn()
-    
-end
-
-function PlayManClass:botTurn()
-
-end
-
 function PlayManClass:shuffle()
 
 end
+
+function PlayManClass:playerTurn()
+    if not playSurface then return end
+
+    for _, home in ipairs(playSurface.cardHomes) do
+        local cardList = nil
+
+        if home.type == "playSpot" then 
+            cardList = home.cards[1]
+        elseif home.playerNum == 1 and home.cards then
+            cardList = home.cards
+        end
+        
+        if cardList then
+            for _, card in ipairs(cardList) do
+                if card ~= grabber.heldObject then
+                    card.locked = true
+                    -- TODO
+                    --
+                    --
+                    -- card.faceDown = true
+                    --
+                    --
+                    -- END
+                end
+            end
+        end
+    end
+
+    self:botTurn()
+end
+
+function PlayManClass:botTurn()
+    -- randomy plays bot's cards facedown
+end
+
+function PlayManClass:revealCards()
+   
+    -- make sure to unlock cards in player hand at end 
+end
+
 
 function PlayManClass:winCondition()
 
