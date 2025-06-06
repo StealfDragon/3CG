@@ -9,7 +9,7 @@ CARD_STATE = { -- stores possible card states
     GRABBED = 2,
 }
 
-function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
+function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num, cardType)
     local card = setmetatable({}, self) 
 
     card.size = Vector(cardWidth, cardHeight)
@@ -32,6 +32,8 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
     end
     card.playedPrev = false
     card.wasInHand = false
+
+    card.cardType = cardType or nil
 
     return card
 end
@@ -112,6 +114,12 @@ function CardClass:checkMouseOver(grabber)
         mousePos.y < self.position.y + self.size.y
     
     self.state = isMouseOver and CARD_STATE.MOUSE_OVER or CARD_STATE.IDLE
+end
+
+function CardClass:activateAbility()
+    if self.cardType and self.cardType.onReveal then
+        self.cardType.onReveal(self)
+    end
 end
 
 function CardClass:setCost()

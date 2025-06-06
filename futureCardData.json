@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Zeus",
+    "cost": 7,
+    "power": 3,
+    "text": "On R: Lower the power of each card in your opponent's hand by 1."
+  },
+  {
+    "name": "Cyclops",
+    "cost": 4,
+    "power": 2,
+    "text": "On R: Discard your other cards here, gain +2 power for each discarded."
+  },
+  {
+    "name": "Aphrodite",
+    "cost": 5,
+    "power": 5,
+    "text": "On R: Lower the power of each enemy card here by 1."
+  },
+  {
+    "name": "Iris",
+    "cost": 6,
+    "power": 8,
+    "text": "EoT: Give your cards at each other location +1 power if they have unique powers."
+  },
+  {
+    "name": "Nyx",
+    "cost": 6,
+    "power": 3,
+    "text": "On R: Discards your other cards here, add their power to this card."
+  },
+  {
+    "name": "Atlas",
+    "cost": 5,
+    "power": 9,
+    "text": "EoT: Loses 1 power if your side of this location is full."
+  },
+  {
+    "name": "Helios",
+    "cost": 6,
+    "power": 10,
+    "text": "EoT: Discard this."
+  },
+  {
+    "name": "Mnemosyne",
+    "cost": 6,
+    "power": 3,
+    "text": "On R: Add a copy of the last card you played to your hand."
+  }
+]

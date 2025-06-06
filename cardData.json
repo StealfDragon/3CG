@@ -3,28 +3,84 @@
     "name": "Wooden Cow",
     "cost": 1,
     "power": 1,
-    "text": "Throw it if you dare.",
-    "type": "Vanilla"
+    "text": "Throw it if you dare."
   },
   {
     "name": "Pegasus",
     "cost": 3,
     "power": 5,
-    "text": "A horse that can... fly?",
-    "type": "Vanilla"
+    "text": "A horse that can... fly?"
   },
   {
     "name": "Minotaur",
     "cost": 5,
     "power": 9,
-    "text": "Beware his mighty horns!",
-    "type": "Vanilla"
+    "text": "Beware his mighty horns!"
   },
   {
     "name": "Titan",
     "cost": 6,
     "power": 12,
-    "text": "Behold its unfathomably ancient power!",
-    "type": "Vanilla"
+    "text": "Behold its unfathomably ancient power!"
+  },
+  {
+    "name": "Ares",
+    "cost": 8,
+    "power": 4,
+    "text": "On R: Gain +2 power for each enemy card here."
+  },
+  {
+    "name": "Artemis",
+    "cost": 5,
+    "power": 5,
+    "text": "On R: Gain +5 power if there is exactly one enemy card here."
+  },
+  {
+    "name": "Hera",
+    "cost": 8,
+    "power": 3,
+    "text": "On R: Give cards in your hand +1 power."
+  },
+  {
+    "name": "Demeter",
+    "cost": 4,
+    "power": 2,
+    "text": "On R: Both players draw a card."
+  },
+  {
+    "name": "Hercules",
+    "cost": 6,
+    "power": 8,
+    "text": "On R: Doubles its power if it's the strongest card here."
+  },
+  {
+    "name": "Ship of Theseus",
+    "cost": 4,
+    "power": 4,
+    "text": "On R: Add a copy with +1 power to your hand."
+  },
+  {
+    "name": "Sword of Damocles",
+    "cost": 5,
+    "power": 10,
+    "text": "EoT: Loses 1 power if not winning this location."
+  },
+  {
+    "name": "Midas",
+    "cost": 7,
+    "power": 1,
+    "text": "On R: Set ALL cards here to 3 power."
+  },
+  {
+    "name": "Apollo",
+    "cost": 3,
+    "power": 2,
+    "text": "On R: Gain +1 mana next turn."
+  },
+  {
+    "name": "Prometheus",
+    "cost": 4,
+    "power": 0,
+    "text": "On R: Draw a card from your opponent's deck."
   }
 ]

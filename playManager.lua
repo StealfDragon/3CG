@@ -186,7 +186,7 @@ function PlayManClass:initiateGame()
     local file = love.filesystem.read("cardData.json")
     local data = json.decode(file)
 
-    for i, entry in ipairs(data) do
+    --[[ for i, entry in ipairs(data) do
         local card
         -- local playerNum = 1 -- or 2 depending on use
 
@@ -213,7 +213,7 @@ function PlayManClass:initiateGame()
 
     playSurface.eDeck:removeCard()
     playSurface.eDeck:removeCard()
-    playSurface.eDeck:removeCard()
+    playSurface.eDeck:removeCard() ]]
 
     table.insert(playSurface.cardHomes, playSurface.playSpot1)
     table.insert(playSurface.cardHomes, playSurface.playSpot2)
