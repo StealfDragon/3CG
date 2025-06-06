@@ -96,6 +96,8 @@ function GrabberClass:isValidRelease()
     if isValidReleasePos and releaseLocation.type == "playSpot" then
         if #releaseLocation.cards[1] >= 4 then
             isValidReleasePos = false
+        elseif self.heldObject.cost > playSurface.pHand:getMana() then
+            isValidReleasePos = false
         end
     end
 

@@ -28,9 +28,9 @@ function love.load()
     playMan:initiateGame()
 end
 
-function love.update()
+function love.update(dt)
     playSurface:update()
-    playMan:update()
+    playMan:update(dt)
 end
 
 function love.draw()

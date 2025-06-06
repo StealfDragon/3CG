@@ -37,11 +37,11 @@ Rubric:
     ✔ Add locations for text @done(25-06-04 16:49)
         ☐ Total power per location
         ☐ Total points per player
-    ☐ Submit button
+    ✔ Submit button @done(25-06-06 03:33)
         ✔ Flips cards face down @done(25-06-06 01:18)
-        ☐ Play's AI's cards face down (randomly)
-        ☐ Reveals face down cards in staged order
-            ☐ Take a little time between cards
+        ✔ Play's AI's cards face down (randomly) @done(25-06-06 03:33)
+        ✔ Reveals face down cards in staged order @done(25-06-06 03:33)
+            ✔ Take a little time between cards @done(25-06-06 03:33)
     ☐ Card functions
     ☐ 14 implemented cards
         ☐ 4 vanilla

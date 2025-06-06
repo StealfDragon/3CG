@@ -41,6 +41,7 @@ function HandClass:addCard(card)
     end
     card.home = self
     card.locked = false
+    if card.wasInHand then self.mana = self.mana + card.cost end
 end
 
 function HandClass:removeCard(card)
@@ -67,6 +68,8 @@ function HandClass:removeCard(card)
     end
     
     card.home = nil
+    card.wasInHand = true
+    self.mana = self.mana - card.cost
 end
 
 function HandClass:changeCosts()
@@ -77,8 +80,8 @@ function HandClass:changePowers()
 
 end
 
-function HandClass:changeMana()
-
+function HandClass:setMana(num)
+    self.mana = num
 end
 
 function HandClass:getPoints()

@@ -177,10 +177,10 @@ function PlaySurfaceClass:drawNums()
     love.graphics.print(text, drawX, drawY)
     -- Draws enemy points and mana
     love.graphics.setColor(1, 0.878, 0.008, 1)
-    text, drawX, drawY = self:drawNumsHelper(self.pHand:getPoints(), self.ePointsHex)
+    text, drawX, drawY = self:drawNumsHelper(self.eHand:getPoints(), self.ePointsHex)
     love.graphics.print(text, drawX, drawY)
     love.graphics.setColor(0.3, 0.7, 0.9, 1)
-    text, drawX, drawY = self:drawNumsHelper(self.pHand:getMana(), self.eManaHex)
+    text, drawX, drawY = self:drawNumsHelper(self.eHand:getMana(), self.eManaHex)
     love.graphics.print(text, drawX, drawY)
 
     -- The power per player at each location is drawn below

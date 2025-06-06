@@ -30,6 +30,8 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num)
     if playerNum == 2 then
         card.locked = true
     end
+    card.playedPrev = false
+    card.wasInHand = false
 
     return card
 end
