@@ -1,18 +1,19 @@
 DeckClass = {}
 DeckClass.__index = DeckClass
 
-function DeckClass:new(xPos, yPos)
+function DeckClass:new(xPos, yPos, playerNum, hand)
     local deck = setmetatable({}, self) 
 
     deck.size = Vector(cardWidth, cardHeight)
     deck.position = Vector(xPos, yPos) - (deck.size * 0.5)
     deck.type = "deck"
     deck.hovered = false
+    deck.pressed = false
 
     deck.cards = {}
-    deck.numCards = 0
 
-    deck.playerNum = nil
+    deck.playerNum = playerNum
+    deck.hand = hand
 
     return deck
 end
@@ -20,12 +21,16 @@ end
 function DeckClass:update()
     self.hovered = self:isMouseOver()
 
-    if love.mouse.isDown(1) and self.hovered and grabber.heldObject == nil and not self.beenPressed then
-        
+    if love.mouse.isDown(1) and self.hovered and grabber.heldObject == nil and self.playerNum == 1 then
+        self.pressed = true
     end
 
     if not love.mouse.isDown(1) and self.pressed and self.hovered then
-        
+        local topCard = self.cards[#self.cards]
+        if topCard then
+            self:removeCard(topCard)
+        end
+        self.pressed = false
     end
 end
 
@@ -41,12 +46,18 @@ function DeckClass:draw()
     love.graphics.setLineWidth(1)
 end
 
-function DeckClass:addCard()
-
+function DeckClass:addCard(card)
+    table.insert(self.cards, card)
+    card.faceDown = true
+    card.position = self.position
+    card.locked = true
 end
 
-function DeckClass:removeCard()
+function DeckClass:removeCard(card)
+    if #self.cards == 0 or #self.hand.cards >= 7 then return end
 
+    local card = table.remove(self.cards)
+    self.hand:addCard(card)
 end
 
 function DeckClass:shuffle()
@@ -55,11 +66,6 @@ end
 
 function DeckClass:makeCards()
 
-end
-
--- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
-function DeckClass:getAllCards()
-    return self.cards
 end
 
 function DeckClass:isMouseOver()
@@ -71,4 +77,9 @@ function DeckClass:isMouseOver()
         mousePos.y < self.position.y + self.size.y
 
     return isMouseOver
+end
+
+-- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
+function DeckClass:getAllCards()
+    return self.cards
 end

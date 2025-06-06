@@ -35,7 +35,8 @@ function HandClass:addCard(card)
     table.insert(self.cards, card)
     card.position = self.position + Vector(25 + ((#self.cards - 1) * 80), cardHeight * 0.1)
     card.home = self
-
+    card.faceDown = false
+    card.locked = false
 end
 
 function HandClass:removeCard(card)

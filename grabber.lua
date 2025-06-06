@@ -24,7 +24,7 @@ function GrabberClass:update(card)
     )
     
     -- Click (just the first frame)
-    if love.mouse.isDown(1) and self.grabPos == nil and card ~= nil then
+    if love.mouse.isDown(1) and self.grabPos == nil and card ~= nil and not card.locked then
         self:grab(card)
     end
     -- Release

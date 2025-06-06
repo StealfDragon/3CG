@@ -88,8 +88,6 @@ function CardClass:draw()
         love.graphics.print(text, centerX - 1, centerY - 1)
         love.graphics.setFont(defaultFont)
     end
-
-
 end
 
 function CardClass:checkMouseOver(grabber)
@@ -118,16 +116,8 @@ function CardClass:setPower()
 
 end
 
-function CardClass:setSpot()
-
-end
-
 function CardClass:discard()
 
-end
-
-function CardClass:setHome()
-    
 end
 
 function CardClass:drawText(x, y, w, h)

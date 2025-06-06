@@ -28,11 +28,11 @@ function PlaySurfaceClass:new()
     playSurface.playSpot3 = PlaySpotClass:new(sizeX - ((spotWidth / 2) + 2), sizeY / 2)
 
     playSurface.pHand = HandClass:new(sizeX / 2, sizeY - (sizeY / 9), 1)
-    playSurface.pDeck = DeckClass:new(sizeX - sizeX/13, sizeY - (sizeY / 9))
+    playSurface.pDeck = DeckClass:new(sizeX - sizeX/13, sizeY - (sizeY / 9), 1, playSurface.pHand)
     playSurface.pDiscard = DiscardClass:new(sizeX/13, sizeY - (sizeY / 9), 1)
 
     playSurface.eHand = HandClass:new(sizeX / 2, sizeY / 9, 2)
-    playSurface.eDeck = DeckClass:new(sizeX/13, sizeY / 9)
+    playSurface.eDeck = DeckClass:new(sizeX/13, sizeY / 9, 2,  playSurface.eHand)
     playSurface.eDiscard = DiscardClass:new(sizeX - sizeX/13, sizeY / 9, 2)
     -- NOTE: enemy discard and deck x positions flipped
 
@@ -81,6 +81,9 @@ function PlaySurfaceClass:update()
     end
 
     grabber:update(hoveredCard)
+
+    self.pDeck:update()
+    self.eDeck:update()
 
     self.submitButton:update()
 end
@@ -157,7 +160,7 @@ function PlaySurfaceClass:fillCards()
             --card.text = entry.text
         end
 
-        self.pHand:addCard(card)
+        self.pDeck:addCard(card)
     end
 
     table.insert(self.cardHomes, self.playSpot1)
@@ -182,15 +185,6 @@ function PlaySurfaceClass:drawHexagons()
     -- Drawing enemy points and mana hexagons to right of hand
     self.ePointsHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
     self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() + (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
-
-    -- Comment below is the old positioning for the player/enemy points/mana hexagons
-    --[[ -- Drawing player points and mana hexagons to right of hand
-    self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.2)))
-    self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.58), self.pHand:getCenterY() + (self.pHand:getSizeY() * 0.2)))
-    
-    -- Drawing enemy points and mana hexagons to right of hand
-    self.ePointsHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.58), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.2)))
-    self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.58), self.eHand:getCenterY() - (self.eHand:getSizeY() * 0.2))) ]]
 
     -- Drawing player points per playSpot below each playSpot
     self.pPS1Hex = Vector(PlaySurfaceClass:drawHex(self.playSpot1:getCenterX(), self.playSpot1:getCenterY() + (spotHeight * 0.6)))
