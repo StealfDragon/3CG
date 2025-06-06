@@ -38,7 +38,7 @@ Rubric:
         ☐ Total power per location
         ☐ Total points per player
     ☐ Submit button
-        ☐ Flips cards face down
+        ✔ Flips cards face down @done(25-06-06 01:18)
         ☐ Play's AI's cards face down (randomly)
         ☐ Reveals face down cards in staged order
             ☐ Take a little time between cards

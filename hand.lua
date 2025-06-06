@@ -32,7 +32,12 @@ end
 
 function HandClass:addCard(card)
     table.insert(self.cards, card)
-    card.position = self.position + Vector(25 + ((#self.cards - 1) * 80), cardHeight * 0.1)
+    if self.playerNum == 1 then
+        card.position = self.position + Vector(25 + ((#self.cards - 1) * 80), cardHeight * 0.1)
+    else
+        local startX = self.position.x + self.size.x - 25 - cardWidth
+        card.position = Vector(startX - ((#self.cards - 1) * 80), self.position.y + cardHeight * 0.1)
+    end
     card.home = self
     card.faceDown = false
     card.locked = false
@@ -52,7 +57,12 @@ function HandClass:removeCard(card)
         table.remove(self.cards, indexToRemove)
 
         for i = indexToRemove, #self.cards do
-            self.cards[i].position = self.position + Vector(25 + ((i - 1) * 80), cardHeight * 0.1)
+            if self.playerNum == 1 then
+                self.cards[i].position = self.position + Vector(25 + ((i - 1) * 80), cardHeight * 0.1)
+            else
+                local startX = self.position.x + self.size.x - 25 - cardWidth
+                self.cards[i].position = Vector(startX - ((i - 1) * 80), self.position.y + cardHeight * 0.1)
+            end
         end
     end
     

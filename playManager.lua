@@ -20,21 +20,32 @@ function PlayManClass:initiateGame()
 
     for i, entry in ipairs(data) do
         local card
-        local playerNum = 1 -- or 2 depending on use
+        -- local playerNum = 1 -- or 2 depending on use
 
         local isSpecial = (entry.type ~= "Vanilla")
 
-        if isSpecial then
-            card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-        else
-            card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
+        for playerNum = 1, 2 do
+            if isSpecial then
+                card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
+            else
+                card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
+            end
+            if playerNum == 1 then
+                playSurface.pDeck:addCard(card)
+            else
+                playSurface.eDeck:addCard(card)
+            end
         end
 
-        playSurface.pDeck:addCard(card)
+        --playSurface.pDeck:addCard(card)
     end
     playSurface.pDeck:removeCard()
     playSurface.pDeck:removeCard()
     playSurface.pDeck:removeCard()
+
+    playSurface.eDeck:removeCard()
+    playSurface.eDeck:removeCard()
+    playSurface.eDeck:removeCard()
 
     table.insert(playSurface.cardHomes, playSurface.playSpot1)
     table.insert(playSurface.cardHomes, playSurface.playSpot2)
