@@ -60,8 +60,6 @@ function PlaySurfaceClass:new()
         function() playMan:playerTurn() end
     )
 
-    playSurface:fillCards()
-
     return playSurface
 end
 
@@ -143,43 +141,6 @@ function PlaySurfaceClass:checkMouseMoving()
             card:checkMouseOver(grabber)
         end
     end
-end
-
--- Function to insantiate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it. It also adds all of the "homes" to the playSurface's cardHomes list
-function PlaySurfaceClass:fillCards()
-    local json = require("dkjson")
-    local file = love.filesystem.read("cardData.json")
-    local data = json.decode(file)
-
-    for i, entry in ipairs(data) do
-        local card
-        local playerNum = 1 -- or 2 depending on use
-
-        local isSpecial = (entry.type ~= "Vanilla")
-
-        if isSpecial then
-            card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-        else
-            card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-        end
-
-        self.pDeck:addCard(card)
-    end
-    self.pDeck:removeCard()
-    self.pDeck:removeCard()
-    self.pDeck:removeCard()
-
-    table.insert(self.cardHomes, self.playSpot1)
-    table.insert(self.cardHomes, self.playSpot2)
-    table.insert(self.cardHomes, self.playSpot3)
-
-    table.insert(self.cardHomes, self.pHand)
-    table.insert(self.cardHomes, self.pDeck)
-    table.insert(self.cardHomes, self.pDiscard)
-
-    table.insert(self.cardHomes, self.eHand)
-    table.insert(self.cardHomes, self.eDeck)
-    table.insert(self.cardHomes, self.eDiscard)
 end
 
 function PlaySurfaceClass:drawHexagons()
