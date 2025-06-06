@@ -1,16 +1,16 @@
 Game Rules:
-    ☐ 3 play locations
-        ☐ 4 card slots per location per player
-    ☐ 1 deck per player
-        ☐ 20 cards, no more than two copies of the same card
-    ☐ When play submitted, winning player's cards flip first -- if tie, flip coin
-    ☐ At end of turn, the player with higher total power at a location ears points for difference of power
-    ☐ First player to reach N points wins game
+    ✔ 3 play locations @done(25-06-06 09:47)
+        ✔ 4 card slots per location per player @done(25-06-06 09:47)
+    ✔ 1 deck per player @done(25-06-06 09:47)
+        ✔ 20 cards, no more than two copies of the same card @done(25-06-06 09:47)
+    ✔ When play submitted, winning player's cards flip first -- if tie, flip coin @done(25-06-06 09:47)
+    ✔ At end of turn, the player with higher total power at a location ears points for difference of power @done(25-06-06 09:47)
+    ✔ First player to reach N points wins game @done(25-06-06 09:47)
     ☐ N is integer val between 10 and 25 (I decide)
-    ☐ Mana count is set to turn num at start of turn
-    ☐ 3 cards in each player's starting hand
-    ☐ 1 card drawn from each player's deck into hand at start of turn
-    ☐ 7 card max per hand
+    ✔ Mana count is set to turn num at start of turn @done(25-06-06 09:48)
+    ✔ 3 cards in each player's starting hand @done(25-06-06 09:48)
+    ✔ 1 card drawn from each player's deck into hand at start of turn @done(25-06-06 09:48)
+    ✔ 7 card max per hand @done(25-06-06 09:48)
 
 Rubric:
     ✔ Name game @done(25-05-26 13:35)

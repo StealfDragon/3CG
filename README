@@ -1,9 +1,18 @@
 NOTE - Made the win condition number 50 because 25 was too easy.
 
 A list of the programming patterns used, with a brief description of how they were used and why:
+    Command – used in grabber to grab cards.
+    Observer – used broadcast win. 
+    State – used to determine in what way a card is currently interacting with grabber.
+    Type Object - used to make cards
 
 
 List of people who gave feedback on code or helped think through  code architecture in discussion sections, the feedback given, and how code was adjusted to it (at least 3 people necessary on list):
+    Aayush Bandopadhyay - 
+
+    Eric Gonzalez - "It looks good, the only thing I’d consider going forward is deciding how many of the files are necessary. For example if you just need one class to manage all the player actions/attributes and then one board class to manage the game." I made sure to look out for parts of my code where I could adapt to this criticism, but I quite like separating my code into files where functions can be easily found.
+
+    Josh Acosta - "First of all, excellent presentation. You’ve selected a beautiful backdrop for your game. The board is well structured (and functional!), which is great. You’ve got some stub functions in your files, so it’s easy to see what you mean to do. The only things missing from your program are the turn structure and card implementation. It seems clear that playManager will manage the turn phases, so all that’s missing is the card abilities. I’d recommend either converting the cards to prototypes, with ability functions for each card, or making numerous small commands (setMana, makeCopy, changePower, etc.) that can be chained together to form abilities. This second method can also serve to make abilities modular, making it easier to implement new cards. Overall, looks good. Don’t forget to fill out your README, and good luck!" I didn't convert the cards to prototypes, but I did quickly realize that I needed to use a design pattern to create the cards, and I ended up going with type object.
 
 
 A postmortem on what was done well and what I would do differently if I were to do this project over again (maybe some programming patterns that might have been a better fit?):
