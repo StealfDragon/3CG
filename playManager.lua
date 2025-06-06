@@ -6,6 +6,7 @@ function PlayManClass:new()
 
     playMan.discardedNum = 0
     playMan.manaNum = 0
+    playMan.extraMana = 0
     playMan.effects = {}
 
     return playMan
@@ -51,12 +52,14 @@ function PlayManClass:playerTurn()
 end
 
 function PlayManClass:botTurn()
-    -- randomy plays bot's cards facedown
+    -- randomly plays bot's cards facedown
 end
 
 function PlayManClass:revealCards()
    
-    -- make sure to unlock cards in player hand at end 
+    -- at end:
+        -- unlock cards in player hand
+        -- set mana count to turn num
 end
 
 

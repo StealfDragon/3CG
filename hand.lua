@@ -14,8 +14,7 @@ function HandClass:new(xPos, yPos, playerNum)
     hand.highestCard = nil
     -- I decided not to use a player object because I can just make two hand objects and store the player info/methods in each hand
     hand.points = 0
-    hand.mana = 0
-    hand.extraMana = 0
+    hand.mana = 1
     hand.playerNum = playerNum
 
     return hand
@@ -60,15 +59,15 @@ function HandClass:removeCard(card)
     card.home = nil
 end
 
-function HandClass:setCosts()
+function HandClass:changeCosts()
 
 end
 
-function HandClass:setPowers()
+function HandClass:changePowers()
 
 end
 
-function HandClass:reduceMana()
+function HandClass:changeMana()
 
 end
 

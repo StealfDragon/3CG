@@ -41,6 +41,7 @@ Rubric:
         ☐ Flips cards face down
         ☐ Play's AI's cards face down (randomly)
         ☐ Reveals face down cards in staged order
+            ☐ Take a little time between cards
     ☐ Card functions
     ☐ 14 implemented cards
         ☐ 4 vanilla
@@ -56,3 +57,4 @@ Todo at end of project:
     ☐ Get rid of debug comments
     ☐ Go through comments for TODOs
     ☐ Write README when programming done
+    ☐ fix font creation

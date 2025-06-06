@@ -145,7 +145,7 @@ function PlaySurfaceClass:checkMouseMoving()
     end
 end
 
--- Function to inititate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it. It also adds all of the "homes" to the playSurface's cardHomes list
+-- Function to insantiate all of the cards. My TODO for this is gonna be huge, but we'll burn that bridge when we get to it. It also adds all of the "homes" to the playSurface's cardHomes list
 function PlaySurfaceClass:fillCards()
     local json = require("dkjson")
     local file = love.filesystem.read("cardData.json")
@@ -161,11 +161,13 @@ function PlaySurfaceClass:fillCards()
             card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
         else
             card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-            --card.text = entry.text
         end
 
         self.pDeck:addCard(card)
     end
+    self.pDeck:removeCard()
+    self.pDeck:removeCard()
+    self.pDeck:removeCard()
 
     table.insert(self.cardHomes, self.playSpot1)
     table.insert(self.cardHomes, self.playSpot2)
@@ -181,12 +183,11 @@ function PlaySurfaceClass:fillCards()
 end
 
 function PlaySurfaceClass:drawHexagons()
-    -- Drawing player points and mana hexagons to right of hand
+    -- Drawing player points and mana hexagons above hand
     self.pPointsHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() - (self.pHand:getSizeX() * 0.16) + 0.5, self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.7)))
     self.pManaHex = Vector(PlaySurfaceClass:drawHex(self.pHand:getCenterX() + (self.pHand:getSizeX() * 0.16) - 0.5, self.pHand:getCenterY() - (self.pHand:getSizeY() * 0.7)))
 
-
-    -- Drawing enemy points and mana hexagons to right of hand
+    -- Drawing enemy points and mana hexagons above hand
     self.ePointsHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() - (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
     self.eManaHex = Vector(PlaySurfaceClass:drawHex(self.eHand:getCenterX() + (self.eHand:getSizeX() * 0.16), self.eHand:getCenterY() + (self.eHand:getSizeY() * 0.7)))
 
@@ -204,51 +205,37 @@ end
 function PlaySurfaceClass:drawNums()
     numFont = love.graphics.newFont("assets/Greek-Freak.ttf", 29)
     love.graphics.setFont(numFont)
+
     -- Each players' stat nums are drawn below
-    -- Draws player points
+    -- Draws player points and mana
     love.graphics.setColor(1, 0.878, 0.008, 1)
     text, drawX, drawY = self:drawNumsHelper(self.pHand:getPoints(), self.pPointsHex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws player mana
     love.graphics.setColor(0.3, 0.7, 0.9, 1)
     text, drawX, drawY = self:drawNumsHelper(self.pHand:getMana(), self.pManaHex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws enemy points
+    -- Draws enemy points and mana
     love.graphics.setColor(1, 0.878, 0.008, 1)
     text, drawX, drawY = self:drawNumsHelper(self.pHand:getPoints(), self.ePointsHex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws enemy mana
     love.graphics.setColor(0.3, 0.7, 0.9, 1)
     text, drawX, drawY = self:drawNumsHelper(self.pHand:getMana(), self.eManaHex)
     love.graphics.print(text, drawX, drawY)
 
-
     -- The power per player at each location is drawn below
     love.graphics.setColor(1, 0, 0, 1)
-    -- Draws player power at playSpot 1
+    -- Draws player powers at playSpots
     text, drawX, drawY = self:drawNumsHelper(self.playSpot1:getPlayerPowers(), self.pPS1Hex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws player power at playSpot 2
     text, drawX, drawY = self:drawNumsHelper(self.playSpot2:getPlayerPowers(), self.pPS2Hex)
     love.graphics.print(text, drawX + 0.5, drawY)
-
-    -- Draws player power at playSpot 3
     text, drawX, drawY = self:drawNumsHelper(self.playSpot3:getPlayerPowers(), self.pPS3Hex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws enemy power at playSpot 1
+    -- Draws enemy powers at playSpots
     text, drawX, drawY = self:drawNumsHelper(self.playSpot1:getEnemyPowers(), self.ePS1Hex)
     love.graphics.print(text, drawX, drawY)
-
-    -- Draws enemy power at playSpot 2
     text, drawX, drawY = self:drawNumsHelper(self.playSpot2:getEnemyPowers(), self.ePS2Hex)
     love.graphics.print(text, drawX + 0.5, drawY)
-
-    -- Draws enemy power at playSpot 3
     text, drawX, drawY = self:drawNumsHelper(self.playSpot3:getEnemyPowers(), self.ePS3Hex)
     love.graphics.print(text, drawX, drawY)
 end
@@ -270,10 +257,8 @@ end
 function PlaySurfaceClass:drawHex(x, y)
     local w = 70
     local h = w / 2
-   
     local hw = w / 2
     local hh = h / 2
-
     local dx = hw
     local dy = hh * 0.5
 

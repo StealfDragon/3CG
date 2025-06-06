@@ -19,7 +19,7 @@ function DeckClass:new(xPos, yPos, playerNum, hand)
 end
 
 function DeckClass:update()
-    self.hovered = self:isMouseOver()
+   --[[  self.hovered = self:isMouseOver()
 
     if love.mouse.isDown(1) and self.hovered and grabber.heldObject == nil and self.playerNum == 1 then
         self.pressed = true
@@ -31,7 +31,7 @@ function DeckClass:update()
             self:removeCard(topCard)
         end
         self.pressed = false
-    end
+    end ]]
 end
 
 function DeckClass:draw()
@@ -68,7 +68,7 @@ function DeckClass:makeCards()
 
 end
 
-function DeckClass:isMouseOver()
+--[[ function DeckClass:isMouseOver()
     local mousePos = grabber.currentMousePos
     local isMouseOver = 
         mousePos.x > self.position.x and
@@ -77,7 +77,7 @@ function DeckClass:isMouseOver()
         mousePos.y < self.position.y + self.size.y
 
     return isMouseOver
-end
+end ]]
 
 -- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function DeckClass:getAllCards()
