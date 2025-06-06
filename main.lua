@@ -30,6 +30,7 @@ end
 
 function love.update()
     playSurface:update()
+    playMan:update()
 end
 
 function love.draw()
