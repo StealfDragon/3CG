@@ -76,6 +76,7 @@ function CardClass:draw()
 
         local defaultFont = love.graphics.getFont()
         local bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 80)
+        bigFont:setFilter("nearest", "nearest")
         love.graphics.setFont(bigFont)
 
         local text = "m"

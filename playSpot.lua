@@ -5,7 +5,7 @@ function PlaySpotClass:new(xPos, yPos)
     local playSpot = setmetatable({}, self, spotWidth, spotHeight) 
 
     playSpot.size = Vector(spotWidth, spotHeight)
-    playSpot.position = Vector(xPos, yPos) - (playSpot.size * 0.5)
+    playSpot.position = Vector(math.floor(xPos + 0.5) + 0.5, math.floor(yPos + 0.5) + 0.5) - (playSpot.size * 0.5)
     playSpot.type = "playSpot"
 
     -- Below is organized code for storing player and enemy powers

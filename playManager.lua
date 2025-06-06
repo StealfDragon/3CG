@@ -69,13 +69,7 @@ function PlayManClass:playerTurn()
             for _, card in ipairs(cardList) do
                 if card ~= grabber.heldObject then
                     card.locked = true
-                    -- TODO
-                    --
-                    --
-                    -- card.faceDown = true
-                    --
-                    --
-                    -- END
+                    card.faceDown = true
                 end
             end
         end

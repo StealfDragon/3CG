@@ -6,6 +6,7 @@ function DeckClass:new(xPos, yPos, playerNum, hand)
 
     deck.size = Vector(cardWidth, cardHeight)
     deck.position = Vector(xPos, yPos) - (deck.size * 0.5)
+
     deck.type = "deck"
     deck.hovered = false
     deck.pressed = false
