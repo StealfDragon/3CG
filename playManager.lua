@@ -1,3 +1,4 @@
+local CardClass = require("Card")
 local cardTypes = require("cardTypes")
 
 PlayManClass = {}
@@ -25,7 +26,7 @@ function PlayManClass:new()
     playMan.botPlayTimer = 0
     playMan.waitingToPlayBotCards = false
 
-    playMan.winNum = 25
+    playMan.winNum = 50
 
     return playMan
 end
@@ -192,9 +193,20 @@ function PlayManClass:afterTurns()
         end
     end
 
-    --[[ for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
-        -- insert player point calculations here
-    end ]]
+    for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+        local p1Power = playSpot.playersPowers[1]
+        local p2Power = playSpot.playersPowers[2]
+
+        if p1Power > p2Power then
+            playSurface.pHand.points = playSurface.pHand.points + (p1Power - p2Power)
+        elseif p2Power > p1Power then
+            playSurface.eHand.points = playSurface.eHand.points + (p2Power - p1Power)
+        end
+    end
+
+    winner = self:winCondition(playSurface.pHand.points, playSurface.eHand.points)
+    if winner then
+    end
 
     for _, card in ipairs(playSurface.pHand.cards) do
         card.locked = false
@@ -208,16 +220,18 @@ function PlayManClass:afterTurns()
     playSurface.submitButton.beenPressed = false
 end
 
-function PlayManClass:winCondition()
-
+function PlayManClass:winCondition(p1Points, p2Points)
+    local winner = nil
+    if p1Points > 25 and p2Points > 25 then
+        if p1Points > p2Points then winner = 1
+        elseif p2Points > p1Points then winner = 2 end
+    elseif p1Points >= 25 then winner = 1
+    elseif p2Points >= 25 then winner = 2 end
+    return winner
 end
 
 -- Function to insantiate game. TODO huge. It also adds all of the "homes" to the playSurface's cardHomes list
 function PlayManClass:initiateGame()
-    local json = require("dkjson")
-    local file = love.filesystem.read("cardData.json")
-    local data = json.decode(file)
-
     local pDeck = self:buildDeck(1)
     for _, card in ipairs(pDeck) do
         playSurface.pDeck:addCard(card)
@@ -250,7 +264,79 @@ function PlayManClass:initiateGame()
 end
 
 function PlayManClass:buildDeck(playerNum)
-    local allTypes = {}
+    local json = require("dkjson")
+    local file = love.filesystem.read("cardData.json")
+    local data = json.decode(file)
+
+    local vanillaCards = {}
+    local specialCards = {}
+
+    for _, cardData in ipairs(data) do
+        local entry = {
+            name = cardData.name,
+            cost = cardData.cost,
+            power = cardData.power,
+            text = cardData.text,
+            type = cardData.type
+        }
+
+        if cardTypes[cardData.name] then
+            local cardType = cardTypes[cardData.name]
+            entry.onReveal = cardType.onReveal
+            entry.onEndOfTurn = cardType.onEndOfTurn or cardType.onEoT
+        end
+
+        if cardData.type == "1" then
+            table.insert(vanillaCards, entry)
+        elseif cardData.type == "2" then
+            table.insert(specialCards, entry)
+        end
+    end
+
+    local deckTypes = {}
+    local counts = {}
+
+    while #deckTypes < 4 do
+        local pick = vanillaCards[math.random(#vanillaCards)]
+        if not counts[pick.name] then
+            table.insert(deckTypes, pick)
+            counts[pick.name] = 1
+        end
+    end
+
+    -- Pick 10 unique special cards
+    while #deckTypes < 14 do
+        local pick = specialCards[math.random(#specialCards)]
+        if not counts[pick.name] then
+            table.insert(deckTypes, pick)
+            counts[pick.name] = 1
+        end
+    end
+
+    -- Add 6 random duplicates (max 2 copies total per card)
+    local allCards = {}
+    for _, card in ipairs(vanillaCards) do table.insert(allCards, card) end
+    for _, card in ipairs(specialCards) do table.insert(allCards, card) end
+
+    while #deckTypes < 20 do
+        local pick = allCards[math.random(#allCards)]
+        if (counts[pick.name] or 0) < 2 then
+            table.insert(deckTypes, pick)
+            counts[pick.name] = (counts[pick.name] or 0) + 1
+        end
+    end
+
+    self:shuffle(deckTypes)
+
+    local deck = {}
+    for _, ctype in ipairs(deckTypes) do
+        local card = CardClass:new(playerNum, 0, 0, ctype.power, ctype.cost, ctype.name, ctype.text, 0, ctype)
+        table.insert(deck, card)
+    end
+
+    return deck
+
+    --[[ local allTypes = {}
     for _, ctype in pairs(cardTypes) do
         table.insert(allTypes, ctype)
     end
@@ -279,7 +365,7 @@ function PlayManClass:buildDeck(playerNum)
         table.insert(deck, card)
     end
 
-    return deck
+    return deck ]]
 end
 
 function PlayManClass:shuffle(deck)

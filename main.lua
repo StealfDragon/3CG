@@ -26,6 +26,8 @@ function love.load()
     playMan = PlayManClass:new()
     playSurface = PlaySurfaceClass:new() -- Keeping main really clean this time, so all layout stuff is handled by PlaySurface
     playMan:initiateGame()
+
+    -- winner = nil
 end
 
 function love.update(dt)

@@ -3,84 +3,98 @@
     "name": "Wooden Cow",
     "cost": 1,
     "power": 1,
-    "text": "Throw it if you dare."
+    "text": "Throw it if you dare.",
+    "type": "1"
   },
   {
     "name": "Pegasus",
     "cost": 3,
     "power": 5,
-    "text": "A horse that can... fly?"
+    "text": "A horse that can... fly?",
+    "type": "1"
   },
   {
     "name": "Minotaur",
     "cost": 5,
     "power": 9,
-    "text": "Beware his mighty horns!"
+    "text": "Beware his mighty horns!",
+    "type": "1"
   },
   {
     "name": "Titan",
     "cost": 6,
     "power": 12,
-    "text": "Behold its unfathomably ancient power!"
+    "text": "Behold its unfathomably ancient power!",
+    "type": "1"
   },
   {
     "name": "Ares",
     "cost": 8,
     "power": 4,
-    "text": "On Reveal: Gain +2 power for each enemy card here."
+    "text": "On Reveal: Gain +2 power for each enemy card here.",
+    "type": "2"
   },
   {
     "name": "Artemis",
     "cost": 5,
     "power": 5,
-    "text": "On Reveal: Gain +5 power if there is exactly one enemy card here."
+    "text": "On Reveal: Gain +5 power if there is exactly one enemy card here.",
+    "type": "2"
   },
   {
     "name": "Hera",
     "cost": 8,
     "power": 3,
-    "text": "On Reveal: Give cards in your hand +1 power."
+    "text": "On Reveal: Give cards in your hand +1 power.",
+    "type": "2"
   },
   {
     "name": "Demeter",
     "cost": 4,
     "power": 2,
-    "text": "On Reveal: Both players draw a card."
+    "text": "On Reveal: Both players draw a card.",
+    "type": "2"
   },
   {
     "name": "Hercules",
     "cost": 6,
     "power": 8,
-    "text": "On Reveal: Doubles its power if it's the strongest card here."
+    "text": "On Reveal: Doubles its power if it's the strongest card here.",
+    "type": "2"
   },
   {
     "name": "Theseus' Ship",
     "cost": 4,
     "power": 4,
-    "text": "On Reveal: Add a copy with +1 power to your hand."
+    "text": "On Reveal: Add a copy with +1 power to your hand.",
+    "type": "2"
   },
   {
     "name": "Damocles",
     "cost": 5,
     "power": 10,
-    "text": "EoT: Loses 1 power if not winning this location."
+    "text": "EoT: Loses 1 power if not winning this location.",
+    "type": "2"
   },
   {
     "name": "Midas",
     "cost": 7,
     "power": 1,
-    "text": "On Reveal: Set ALL cards here to 3 power."
+    "text": "On Reveal: Set ALL cards here to 3 power.",
+    "type": "2"
   },
   {
     "name": "Apollo",
     "cost": 3,
     "power": 2,
-    "text": "On Reveal: Gain +1 mana next turn."
+    "text": "On Reveal: Gain +1 mana next turn.",
+    "type": "2"
   },
   {
     "name": "Prometheus",
     "cost": 4,
     "power": 0,
-    "text": "On Reveal: Draw a card from your opponent's deck."
+    "text": "On Reveal: Draw a card from your opponent's deck.",
+    "type": "2"
   }
 ]

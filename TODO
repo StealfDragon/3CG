@@ -49,8 +49,9 @@ Rubric:
             ☐ Pick 10 special cards
             ☐ Implement all special cards
     ✔ Card mana cost @done(25-06-06 08:10)
-    ☐ Make player point system functional
-    ☐ Turn structure implemented
+    ✔ Make player point system functional @done(25-06-06 09:36)
+    ✔ Turn structure implemented @done(25-06-06 09:36)
+    ☐ Implement win condition
         ☐ If either player wins, display message, and display play again button
 
 Todo at end of project:

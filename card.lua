@@ -18,7 +18,7 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num, card
     card.playerNum = playerNum
     card.power = power
     card.cost = cost
-    card.num = num
+    --card.num = num
     card.name = name or ""
     card.text = text or ""
 
@@ -234,3 +234,5 @@ function CardClass:drawText(x, y, w, h)
         love.graphics.print(line, math.floor(x + bodyPadding + 0.5), math.floor(bodyY + (i - 1) * lineHeight + 0.5))
     end
 end
+
+return CardClass

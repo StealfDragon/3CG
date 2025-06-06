@@ -42,6 +42,7 @@ function HandClass:addCard(card)
     card.home = self
     card.locked = false
     if card.wasInHand then self.mana = self.mana + card.cost end
+    card.playerNum = self.playerNum
 end
 
 function HandClass:removeCard(card)
