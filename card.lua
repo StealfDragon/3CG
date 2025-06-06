@@ -116,9 +116,40 @@ function CardClass:checkMouseOver(grabber)
     self.state = isMouseOver and CARD_STATE.MOUSE_OVER or CARD_STATE.IDLE
 end
 
-function CardClass:activateAbility()
-    if self.cardType and self.cardType.onReveal then
+function CardClass:activateOnReveal()
+    --[[ if self.cardType and self.cardType.onReveal then
         self.cardType.onReveal(self)
+    end ]]
+    if self.cardType and self.cardType.onReveal then
+        local foundPlaySpot = nil
+        for _, spot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+            for _, card in ipairs(spot.cards[self.playerNum]) do
+                if card == self then
+                    foundPlaySpot = spot
+                    break
+                end
+            end
+        end
+        self.cardType.onReveal(self, foundPlaySpot)
+    end
+end
+
+function CardClass:activateOnEndOfTurn()
+    --[[ if self.cardType and self.cardType.onEndOfTurn then
+        self.cardType.onEndOfTurn(self)
+    end ]]
+    if self.cardType and self.cardType.onEndOfTurn then
+        local foundPlaySpot = nil
+        for _, spot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+            for _, card in ipairs(spot.cards[self.playerNum]) do
+                if card == self then
+                    foundPlaySpot = spot
+                    break
+                end
+            end
+        end
+
+        self.cardType.onEndOfTurn(self, foundPlaySpot)
     end
 end
 

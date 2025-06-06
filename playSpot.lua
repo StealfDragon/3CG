@@ -65,8 +65,8 @@ function PlaySpotClass:addCard(card)
     table.insert(self.cards[playerNum], card)
     card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
     card.home = self
-    self.totalPower = self.totalPower + card.power
-    self.playersPowers[playerNum] = self.playersPowers[playerNum] + card.power
+    --self.totalPower = self.totalPower + card.power
+    --self.playersPowers[playerNum] = self.playersPowers[playerNum] + card.power
 end
 
 -- this function removes a card from the playSpot, and handles the positioning of the other cards accordingly
@@ -92,8 +92,8 @@ function PlaySpotClass:removeCard(card)
     
     card.home = nil
 
-    self.totalPower = self.totalPower - card.power
-    self.playersPowers[playerNum] = self.playersPowers[playerNum] - card.power
+    --self.totalPower = self.totalPower - card.power
+    --self.playersPowers[playerNum] = self.playersPowers[playerNum] - card.power
 end
 
 function PlaySpotClass:setAllPowers(num)

@@ -42,13 +42,13 @@ Rubric:
         ✔ Play's AI's cards face down (randomly) @done(25-06-06 03:33)
         ✔ Reveals face down cards in staged order @done(25-06-06 03:33)
             ✔ Take a little time between cards @done(25-06-06 03:33)
-    ☐ Card functions
-    ☐ 14 implemented cards
+    ✔ Card functions @done(25-06-06 08:10)
+    ✔ 14 implemented cards @done(25-06-06 08:10)
         ☐ 4 vanilla
         ☐ 10 special
             ☐ Pick 10 special cards
             ☐ Implement all special cards
-    ☐ Card mana cost
+    ✔ Card mana cost @done(25-06-06 08:10)
     ☐ Make player point system functional
     ☐ Turn structure implemented
         ☐ If either player wins, display message, and display play again button

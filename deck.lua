@@ -20,19 +20,7 @@ function DeckClass:new(xPos, yPos, playerNum, hand)
 end
 
 function DeckClass:update()
-   --[[  self.hovered = self:isMouseOver()
 
-    if love.mouse.isDown(1) and self.hovered and grabber.heldObject == nil and self.playerNum == 1 then
-        self.pressed = true
-    end
-
-    if not love.mouse.isDown(1) and self.pressed and self.hovered then
-        local topCard = self.cards[#self.cards]
-        if topCard then
-            self:removeCard(topCard)
-        end
-        self.pressed = false
-    end ]]
 end
 
 function DeckClass:draw()
@@ -54,11 +42,18 @@ function DeckClass:addCard(card)
     card.locked = true
 end
 
-function DeckClass:removeCard(card)
+function DeckClass:removeCard()
     if #self.cards == 0 or #self.hand.cards >= 7 then return end
 
     local card = table.remove(self.cards)
     self.hand:addCard(card)
+end
+
+function DeckClass:removeOppCard(hand)
+    if #self.cards == 0 or #hand.cards >= 7 then return end
+
+    local card = table.remove(self.cards)
+    hand:addCard(card)
 end
 
 function DeckClass:shuffle()

@@ -27,40 +27,40 @@
     "name": "Ares",
     "cost": 8,
     "power": 4,
-    "text": "On R: Gain +2 power for each enemy card here."
+    "text": "On Reveal: Gain +2 power for each enemy card here."
   },
   {
     "name": "Artemis",
     "cost": 5,
     "power": 5,
-    "text": "On R: Gain +5 power if there is exactly one enemy card here."
+    "text": "On Reveal: Gain +5 power if there is exactly one enemy card here."
   },
   {
     "name": "Hera",
     "cost": 8,
     "power": 3,
-    "text": "On R: Give cards in your hand +1 power."
+    "text": "On Reveal: Give cards in your hand +1 power."
   },
   {
     "name": "Demeter",
     "cost": 4,
     "power": 2,
-    "text": "On R: Both players draw a card."
+    "text": "On Reveal: Both players draw a card."
   },
   {
     "name": "Hercules",
     "cost": 6,
     "power": 8,
-    "text": "On R: Doubles its power if it's the strongest card here."
+    "text": "On Reveal: Doubles its power if it's the strongest card here."
   },
   {
-    "name": "Ship of Theseus",
+    "name": "Theseus' Ship",
     "cost": 4,
     "power": 4,
-    "text": "On R: Add a copy with +1 power to your hand."
+    "text": "On Reveal: Add a copy with +1 power to your hand."
   },
   {
-    "name": "Sword of Damocles",
+    "name": "Damocles",
     "cost": 5,
     "power": 10,
     "text": "EoT: Loses 1 power if not winning this location."
@@ -69,18 +69,18 @@
     "name": "Midas",
     "cost": 7,
     "power": 1,
-    "text": "On R: Set ALL cards here to 3 power."
+    "text": "On Reveal: Set ALL cards here to 3 power."
   },
   {
     "name": "Apollo",
     "cost": 3,
     "power": 2,
-    "text": "On R: Gain +1 mana next turn."
+    "text": "On Reveal: Gain +1 mana next turn."
   },
   {
     "name": "Prometheus",
     "cost": 4,
     "power": 0,
-    "text": "On R: Draw a card from your opponent's deck."
+    "text": "On Reveal: Draw a card from your opponent's deck."
   }
 ]

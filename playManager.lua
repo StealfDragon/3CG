@@ -1,3 +1,5 @@
+local cardTypes = require("cardTypes")
+
 PlayManClass = {}
 PlayManClass.__index = PlayManClass
 
@@ -22,6 +24,8 @@ function PlayManClass:new()
     playMan.botPlayDelay = 0
     playMan.botPlayTimer = 0
     playMan.waitingToPlayBotCards = false
+
+    playMan.winNum = 25
 
     return playMan
 end
@@ -49,6 +53,10 @@ function PlayManClass:update(dt)
             local card = table.remove(self.revealQueue, 1)
             card.faceDown = false
             self.revealTimer = 0
+
+            if card.cardType and card.cardType.onReveal then
+                card:activateOnReveal()
+            end
         end
     end
 
@@ -164,6 +172,30 @@ function PlayManClass:queueRevealCards()
 end
 
 function PlayManClass:afterTurns()
+    for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+        for playerNum = 1, 2 do
+            for _, card in ipairs(playSpot.cards[playerNum]) do
+                if card.cardType and card.cardType.onEndOfTurn then
+                    card:activateOnEndOfTurn()
+                end
+            end
+        end
+    end
+
+    for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+        playSpot.playersPowers[1] = 0
+        playSpot.playersPowers[2] = 0
+        for playerNum = 1, 2 do
+            for _, card in ipairs(playSpot.cards[playerNum]) do
+                playSpot.playersPowers[playerNum] = playSpot.playersPowers[playerNum] + card.power
+            end
+        end
+    end
+
+    --[[ for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+        -- insert player point calculations here
+    end ]]
+
     for _, card in ipairs(playSurface.pHand.cards) do
         card.locked = false
     end
@@ -186,34 +218,23 @@ function PlayManClass:initiateGame()
     local file = love.filesystem.read("cardData.json")
     local data = json.decode(file)
 
-    --[[ for i, entry in ipairs(data) do
-        local card
-        -- local playerNum = 1 -- or 2 depending on use
-
-        local isSpecial = (entry.type ~= "Vanilla")
-
-        for playerNum = 1, 2 do
-            if isSpecial then
-                card = SpecialCardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-            else
-                card = CardClass:new(playerNum, 0, 0, entry.power, entry.cost, entry.name, entry.text, i)
-            end
-            if playerNum == 1 then
-                playSurface.pDeck:addCard(card)
-            else
-                playSurface.eDeck:addCard(card)
-            end
-        end
-
-        --playSurface.pDeck:addCard(card)
+    local pDeck = self:buildDeck(1)
+    for _, card in ipairs(pDeck) do
+        playSurface.pDeck:addCard(card)
     end
+
+    local eDeck = self:buildDeck(2)
+    for _, card in ipairs(eDeck) do
+        playSurface.eDeck:addCard(card)
+    end
+
     playSurface.pDeck:removeCard()
     playSurface.pDeck:removeCard()
     playSurface.pDeck:removeCard()
 
     playSurface.eDeck:removeCard()
     playSurface.eDeck:removeCard()
-    playSurface.eDeck:removeCard() ]]
+    playSurface.eDeck:removeCard()
 
     table.insert(playSurface.cardHomes, playSurface.playSpot1)
     table.insert(playSurface.cardHomes, playSurface.playSpot2)
@@ -228,6 +249,42 @@ function PlayManClass:initiateGame()
     table.insert(playSurface.cardHomes, playSurface.eDiscard)
 end
 
-function PlayManClass:shuffle()
+function PlayManClass:buildDeck(playerNum)
+    local allTypes = {}
+    for _, ctype in pairs(cardTypes) do
+        table.insert(allTypes, ctype)
+    end
 
+    local deckTypes = {}
+    local counts = {}
+
+    for _, ctype in ipairs(allTypes) do
+        table.insert(deckTypes, ctype)
+        counts[ctype.name] = 1
+    end
+
+    while #deckTypes < 20 do
+        local pick = allTypes[math.random(#allTypes)]
+        if (counts[pick.name] or 0) < 2 then
+            table.insert(deckTypes, pick)
+            counts[pick.name] = (counts[pick.name] or 0) + 1
+        end
+    end
+
+    self:shuffle(deckTypes)
+
+    local deck = {}
+    for _, ctype in ipairs(deckTypes) do
+        local card = CardClass:new(playerNum, 0, 0, ctype.power, ctype.cost, ctype.name, ctype.text, 0, ctype)
+        table.insert(deck, card)
+    end
+
+    return deck
+end
+
+function PlayManClass:shuffle(deck)
+    for i = #deck, 2, -1 do
+        local j = math.random(1, i)
+        deck[i], deck[j] = deck[j], deck[i]
+    end
 end

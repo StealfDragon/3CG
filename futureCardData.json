@@ -3,19 +3,19 @@
     "name": "Zeus",
     "cost": 7,
     "power": 3,
-    "text": "On R: Lower the power of each card in your opponent's hand by 1."
+    "text": "On Reveal: Lower the power of each card in your opponent's hand by 1."
   },
   {
     "name": "Cyclops",
     "cost": 4,
     "power": 2,
-    "text": "On R: Discard your other cards here, gain +2 power for each discarded."
+    "text": "On Reveal: Discard your other cards here, gain +2 power for each discarded."
   },
   {
     "name": "Aphrodite",
     "cost": 5,
     "power": 5,
-    "text": "On R: Lower the power of each enemy card here by 1."
+    "text": "On Reveal: Lower the power of each enemy card here by 1."
   },
   {
     "name": "Iris",
@@ -27,7 +27,7 @@
     "name": "Nyx",
     "cost": 6,
     "power": 3,
-    "text": "On R: Discards your other cards here, add their power to this card."
+    "text": "On Reveal: Discards your other cards here, add their power to this card."
   },
   {
     "name": "Atlas",
@@ -45,6 +45,6 @@
     "name": "Mnemosyne",
     "cost": 6,
     "power": 3,
-    "text": "On R: Add a copy of the last card you played to your hand."
+    "text": "On Reveal: Add a copy of the last card you played to your hand."
   }
 ]

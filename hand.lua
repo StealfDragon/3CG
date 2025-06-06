@@ -57,7 +57,7 @@ function HandClass:removeCard(card)
     if indexToRemove then
         table.remove(self.cards, indexToRemove)
 
-        for i = indexToRemove, #self.cards do
+        for i = 1, #self.cards do
             if self.playerNum == 1 then
                 self.cards[i].position = self.position + Vector(25 + ((i - 1) * 80), cardHeight * 0.1)
             else

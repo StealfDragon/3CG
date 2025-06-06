@@ -1,7 +1,6 @@
 require "vector"
 require "grabber"
 require "card"
-require "specialCard"
 require "hand"
 require "deck"
 require "playSpot"
@@ -69,7 +68,7 @@ function PlaySurfaceClass:update()
     -- Checks every card to see if its state has changed, and calls grabber on any hovered card, in order to check for a grab
     local hoveredCard = nil
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
+        local cardList = self:cardListHelper(home) -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for i = #cardList, 1, -1 do
             local card = cardList[i]
             if card.state == CARD_STATE.MOUSE_OVER then
@@ -115,7 +114,7 @@ function PlaySurfaceClass:draw()
 
     -- Then drawing all cards in those "homes"
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
+        local cardList = self:cardListHelper(home) -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for _, card in ipairs(cardList) do
             if card ~= grabber.heldObject then
                 card:draw()
@@ -136,7 +135,7 @@ function PlaySurfaceClass:checkMouseMoving()
 
     -- Different check than earlier in update. checkMouseOver doesn't take any actions, its only job is to change a card's state, so this is basically a little helper loop for the "action" loop in update
     for _, home in ipairs(self.cardHomes) do
-        local cardList = home.type == "playSpot" and home:getAllCards() or home.cards -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
+        local cardList = self:cardListHelper(home) -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for _, card in ipairs(cardList) do
             card:checkMouseOver(grabber)
         end
@@ -241,4 +240,8 @@ function PlaySurfaceClass:drawHex(x, y)
     love.graphics.setLineWidth(1)
 
     return x, y
+end
+
+function PlaySurfaceClass:cardListHelper(home)
+    return home.type == "playSpot" and home:getAllCards() or home.cards
 end
