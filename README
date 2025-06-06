@@ -16,7 +16,7 @@ List of people who gave feedback on code or helped think through  code architect
 
 
 A postmortem on what was done well and what I would do differently if I were to do this project over again (maybe some programming patterns that might have been a better fit?):
-
+    I am quite happy with the programming patterns that I used, so my main postmortem is that I wish I had been able to stay at the same pace towards the end of the process. I sped up towards the end, which led to messy code. The line that bothers me most is in grabber, where I had to involve hand's mana because I had to do that somewhere. I was hoping to keep that stuff contained to hand and playMan. I'll probably go back and fix it later.
 
 A list of all assets (sprites, SFX, fonts, music, shaders, etc.) used in this project:
     Background: u/Rubikow on Reddit -- https://www.reddit.com/r/battlemaps/comments/1ehk7ql/the_jungle_arena_plain_version/
