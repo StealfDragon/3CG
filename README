@@ -2,9 +2,9 @@ NOTE - Made the win condition number 50 because 25 was too easy.
 
 A list of the programming patterns used, with a brief description of how they were used and why:
     Command – used in grabber to grab cards.
-    Observer – used broadcast win. 
-    State – used to determine in what way a card is currently interacting with grabber.
-    Type Object - used to make cards
+    Observer – used broadcast win, so that code doesn't become disorganized.
+    State – used to determine in what way a card is currently interacting with grabber, because it's a very easy way to keep track of how card movement works.
+    Type Object - used to make cards, because creating an object for every card would be horrifying.
 
 
 List of people who gave feedback on code or helped think through  code architecture in discussion sections, the feedback given, and how code was adjusted to it (at least 3 people necessary on list):
