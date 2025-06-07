@@ -1,4 +1,5 @@
 NOTE - Made the win condition number 50 because 25 was too easy.
+NOTE2 - The discard pile does not work in any way, but the assignment doesn't require it work, so I assume it's fine. It's not necessary for gameplay, it's just nice for symmetry.
 
 A list of the programming patterns used, with a brief description of how they were used and why:
     Command – used in grabber to grab cards.
@@ -20,5 +21,3 @@ A postmortem on what was done well and what I would do differently if I were to 
 
 A list of all assets (sprites, SFX, fonts, music, shaders, etc.) used in this project:
     Background: u/Rubikow on Reddit -- https://www.reddit.com/r/battlemaps/comments/1ehk7ql/the_jungle_arena_plain_version/
-    Card Sprites:
-

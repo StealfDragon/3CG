@@ -51,8 +51,8 @@ Rubric:
     ✔ Card mana cost @done(25-06-06 08:10)
     ✔ Make player point system functional @done(25-06-06 09:36)
     ✔ Turn structure implemented @done(25-06-06 09:36)
-    ☐ Implement win condition
-        ☐ If either player wins, display message, and display play again button
+    ✔ Implement win condition @done(25-06-06 20:29)
+        ✔ If either player wins, display message, and display play again button @done(25-06-06 20:29)
 
 Todo at end of project:
     ☐ Get rid of debug comments
