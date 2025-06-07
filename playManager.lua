@@ -218,6 +218,7 @@ function PlayManClass:afterTurns()
 
     winner = self:winCondition(playSurface.pHand.points, playSurface.eHand.points)
     if winner then
+        self:notifyWin(winner)
     end
 
     for _, card in ipairs(playSurface.pHand.cards) do
@@ -230,6 +231,7 @@ function PlayManClass:afterTurns()
     playSurface.pDeck:removeCard()
     playSurface.eDeck:removeCard()
     playSurface.submitButton.beenPressed = false
+    self.extraMana = {0, 0}
 end
 
 function PlayManClass:winCondition(p1Points, p2Points)
@@ -353,5 +355,17 @@ function PlayManClass:shuffle(deck)
     for i = #deck, 2, -1 do
         local j = math.random(1, i)
         deck[i], deck[j] = deck[j], deck[i]
+    end
+end
+
+function PlayManClass:subscribe(observer)
+    table.insert(self.observers, observer)
+end
+
+function PlayManClass:notifyWin(winner)
+    for _, observer in ipairs(self.observers) do
+        if observer.onGameWon then
+            observer:onGameWon(winner)
+        end
     end
 end

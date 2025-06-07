@@ -3,11 +3,11 @@ require "vector"
 ButtonClass = {}
 ButtonClass.__index = ButtonClass
 
-function ButtonClass:new(x, y, text, onClick)
+function ButtonClass:new(x, y, width, height, text, onClick)
     local button = setmetatable({}, self)
 
-    button.width = 90
-    button.height = 35
+    button.width = width
+    button.height = height
     button.size = Vector(button.width, button.height)
     button.position = Vector(x, y) - (button.size * 0.5)
     button.text = text

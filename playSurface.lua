@@ -55,14 +55,23 @@ function PlaySurfaceClass:new()
     playSurface.submitButton = ButtonClass:new(
         pHandXY.x, 
         pHandXY.y - (playSurface.pHand:getSizeY() * 0.7), 
-        "Submit", 
+        90,
+        35,
+        "Submit",
         function() playMan:playerTurn() end
     )
+
+    playSurface.winner = nil
+    playSurface.playAgainButton = nil
 
     return playSurface
 end
 
 function PlaySurfaceClass:update()
+    if self.winner and self.playAgainButton then
+        self.playAgainButton:update()
+    end
+    
     self:checkMouseMoving()
 
     -- Checks every card to see if its state has changed, and calls grabber on any hovered card, in order to check for a grab
@@ -125,6 +134,19 @@ function PlaySurfaceClass:draw()
     -- Draws the held object on top of everything else so that it's never under anything while being moved
     if grabber.heldObject then
         grabber.heldObject:draw()
+    end
+
+    if self.winner and self.playAgainButton then
+        love.graphics.setColor(0, 0, 0, 0.7)
+        love.graphics.rectangle("fill", 0, 0, sizeX, sizeY)
+
+        love.graphics.setColor(1, 1, 1)
+        local msg = (self.winner == 1) and "You Win!" or "You Lose!"
+        local bigFont = love.graphics.newFont("assets/Greek-Freak.ttf", 42)
+        love.graphics.setFont(bigFont)
+        love.graphics.printf(msg, 0, sizeY / 2 - 120, sizeX, "center")
+
+        self.playAgainButton:draw()
     end
 end
 
@@ -244,4 +266,17 @@ end
 
 function PlaySurfaceClass:cardListHelper(home)
     return home.type == "playSpot" and home:getAllCards() or home.cards
+end
+
+function PlaySurfaceClass:onGameWon(winningPlayer)
+    self.winner = winningPlayer
+    self.playAgainButton = ButtonClass:new(sizeX / 2, sizeY / 2 + 60, 210, 60, "Play Again", function()
+        -- Reset everything
+        playMan = PlayManClass:new()
+        playSurface = PlaySurfaceClass:new()
+        playMan:initiateGame()
+        playMan:subscribe(playSurface) -- Resubscribe to self
+        self.winner = nil
+        self.playAgainButton = nil
+    end)
 end
