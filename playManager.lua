@@ -26,6 +26,7 @@ function PlayManClass:new()
     playMan.botPlayTimer = 0
     playMan.waitingToPlayBotCards = false
 
+    playMan.observers = {}
     playMan.winNum = 50
 
     return playMan
@@ -88,6 +89,7 @@ function PlayManClass:playerTurn()
             if not card.playedPrev then
                 card.faceDown = true
                 card.playedPrev = true
+                card.locked = true
             end
         end
     end
@@ -174,6 +176,16 @@ end
 
 function PlayManClass:afterTurns()
     for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
+        playSpot.playersPowers[1] = 0
+        playSpot.playersPowers[2] = 0
+        for playerNum = 1, 2 do
+            for _, card in ipairs(playSpot.cards[playerNum]) do
+                playSpot.playersPowers[playerNum] = playSpot.playersPowers[playerNum] + card.power
+            end
+        end
+    end
+
+    for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
         for playerNum = 1, 2 do
             for _, card in ipairs(playSpot.cards[playerNum]) do
                 if card.cardType and card.cardType.onEndOfTurn then
@@ -184,11 +196,11 @@ function PlayManClass:afterTurns()
     end
 
     for _, playSpot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
-        playSpot.playersPowers[1] = 0
-        playSpot.playersPowers[2] = 0
         for playerNum = 1, 2 do
             for _, card in ipairs(playSpot.cards[playerNum]) do
-                playSpot.playersPowers[playerNum] = playSpot.playersPowers[playerNum] + card.power
+                if card.cardType and card.cardType.onEndOfTurn then
+                    playSpot.playersPowers[playerNum] = playSpot.playersPowers[playerNum] + (card.power - card.prePower)
+                end
             end
         end
     end
@@ -222,11 +234,11 @@ end
 
 function PlayManClass:winCondition(p1Points, p2Points)
     local winner = nil
-    if p1Points > 25 and p2Points > 25 then
+    if p1Points > self.winNum and p2Points > self.winNum then
         if p1Points > p2Points then winner = 1
         elseif p2Points > p1Points then winner = 2 end
-    elseif p1Points >= 25 then winner = 1
-    elseif p2Points >= 25 then winner = 2 end
+    elseif p1Points >= self.winNum then winner = 1
+    elseif p2Points >= self.winNum then winner = 2 end
     return winner
 end
 
@@ -335,37 +347,6 @@ function PlayManClass:buildDeck(playerNum)
     end
 
     return deck
-
-    --[[ local allTypes = {}
-    for _, ctype in pairs(cardTypes) do
-        table.insert(allTypes, ctype)
-    end
-
-    local deckTypes = {}
-    local counts = {}
-
-    for _, ctype in ipairs(allTypes) do
-        table.insert(deckTypes, ctype)
-        counts[ctype.name] = 1
-    end
-
-    while #deckTypes < 20 do
-        local pick = allTypes[math.random(#allTypes)]
-        if (counts[pick.name] or 0) < 2 then
-            table.insert(deckTypes, pick)
-            counts[pick.name] = (counts[pick.name] or 0) + 1
-        end
-    end
-
-    self:shuffle(deckTypes)
-
-    local deck = {}
-    for _, ctype in ipairs(deckTypes) do
-        local card = CardClass:new(playerNum, 0, 0, ctype.power, ctype.cost, ctype.name, ctype.text, 0, ctype)
-        table.insert(deck, card)
-    end
-
-    return deck ]]
 end
 
 function PlayManClass:shuffle(deck)

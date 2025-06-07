@@ -53,6 +53,7 @@ cardTypes["Hercules"] = {
     power = 8,
     text = "On Reveal: Doubles its power if it's the strongest card here.", ]]
     onReveal = function(self, playSpot)
+        self.prePower = self.power
         local strongest = true
         for i = 1, 2 do
             for _, card in ipairs(playSpot.cards[i]) do
@@ -87,9 +88,10 @@ cardTypes["Damocles"] = {
     power = 10,
     text = "EoT: Loses 1 power if not winning this location.", ]]
     onEndOfTurn = function(self, playSpot)
+        self.prePower = self.power
         local myPower = playSpot.playersPowers[self.playerNum]
         local enemyPower = playSpot.playersPowers[3 - self.playerNum]
-        if myPower <= enemyPower then
+        if enemyPower > myPower then
             self.power = self.power - 1
         end
     end

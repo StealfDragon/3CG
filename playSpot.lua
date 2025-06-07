@@ -65,6 +65,9 @@ function PlaySpotClass:addCard(card)
     table.insert(self.cards[playerNum], card)
     card.position = self.cardSlots[playerNum][#self.cards[playerNum]]
     card.home = self
+    if card.playerNum == 2 then
+        card.locked = true
+    end
     --self.totalPower = self.totalPower + card.power
     --self.playersPowers[playerNum] = self.playersPowers[playerNum] + card.power
 end
