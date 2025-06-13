@@ -134,9 +134,6 @@ function CardClass:checkMouseOver(grabber)
 end
 
 function CardClass:activateOnReveal()
-    --[[ if self.cardType and self.cardType.onReveal then
-        self.cardType.onReveal(self)
-    end ]]
     if self.cardType and self.cardType.onReveal then
         local foundPlaySpot = nil
         for _, spot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
@@ -152,9 +149,6 @@ function CardClass:activateOnReveal()
 end
 
 function CardClass:activateOnEndOfTurn()
-    --[[ if self.cardType and self.cardType.onEndOfTurn then
-        self.cardType.onEndOfTurn(self)
-    end ]]
     if self.cardType and self.cardType.onEndOfTurn then
         local foundPlaySpot = nil
         for _, spot in ipairs({playSurface.playSpot1, playSurface.playSpot2, playSurface.playSpot3}) do
@@ -170,16 +164,19 @@ function CardClass:activateOnEndOfTurn()
     end
 end
 
-function CardClass:setCost()
-
-end
-
-function CardClass:setPower()
-
-end
-
 function CardClass:discard()
+    self.discarded = true
+    self.faceDown = true
+    self.locked = true
 
+    if self.home and self.home.removeCard then
+        self.home:removeCard(self)
+    end
+
+    local discardPile = (self.playerNum == 1) and playSurface.pDiscard or playSurface.eDiscard
+    table.insert(discardPile.cards, self)
+    self.position = discardPile.position
+    self.home = discardPile
 end
 
 function CardClass:drawText(x, y, w, h, scale)

@@ -96,5 +96,47 @@
     "power": 0,
     "text": "On Reveal: Draw a card from your opponent's deck.",
     "type": "2"
+  },
+  {
+    "name": "Aphrodite",
+    "cost": 5,
+    "power": 5,
+    "text": "On Reveal: Lower the power of each enemy card here by 1.",
+    "type": "2"
+  },
+  {
+    "name": "Atlas",
+    "cost": 5,
+    "power": 9,
+    "text": "End of Turn: Loses 1 power if your side of this location is full.",
+    "type": "2"
+  },
+  {
+    "name": "Helios",
+    "cost": 6,
+    "power": 10,
+    "text": "End of Turn: Discard this.",
+    "type": "2"
+  },
+  {
+    "name": "Mnemosyne",
+    "cost": 6,
+    "power": 3,
+    "text": "On Reveal: Add a copy of the last card you played to your hand.",
+    "type": "2"
+  },
+  {
+    "name": "Zeus",
+    "cost": 7,
+    "power": 3,
+    "text": "On Reveal: Lower the power of each card in your opponent's hand by, 1.",
+    "type": "2"
+  },
+  {
+    "name": "Nyx",
+    "cost": 6,
+    "power": 3,
+    "text": "On Reveal: Discards your other cards here, add their power to this card.",
+    "type": "2"
   }
 ]

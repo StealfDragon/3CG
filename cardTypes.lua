@@ -2,9 +2,6 @@ cardTypes = {}
 
 cardTypes["Ares"] = {
     name = "Ares",
-    --[[ cost = 8,
-    power = 4,
-    text = "On Reveal: Gain +2 power for each enemy card here.", ]]
     onReveal = function(self, playSpot)
         local enemyCards = #playSpot.cards[3 - self.playerNum]
         self.power = self.power + 2 * enemyCards
@@ -13,9 +10,6 @@ cardTypes["Ares"] = {
 
 cardTypes["Artemis"] = {
     name = "Artemis",
-    --[[ cost = 5,
-    power = 5,
-    text = "On Reveal: Gain +5 power if there is exactly one enemy card here.", ]]
     onReveal = function(self, playSpot)
         if #playSpot.cards[3 - self.playerNum] == 1 then
             self.power = self.power + 5
@@ -25,9 +19,6 @@ cardTypes["Artemis"] = {
 
 cardTypes["Hera"] = {
     name = "Hera",
-    --[[ cost = 8,
-    power = 3,
-    text = "On Reveal: Give cards in your hand +1 power.", ]]
     onReveal = function(self)
         local hand = (self.playerNum == 1) and playSurface.pHand or playSurface.eHand
         for _, card in ipairs(hand.cards) do
@@ -38,9 +29,6 @@ cardTypes["Hera"] = {
 
 cardTypes["Demeter"] = {
     name = "Demeter",
-    --[[ cost = 4,
-    power = 2,
-    text = "On Reveal: Both players draw a card.", ]]
     onReveal = function(self)
         playSurface.pDeck:removeCard()
         playSurface.eDeck:removeCard()
@@ -49,9 +37,6 @@ cardTypes["Demeter"] = {
 
 cardTypes["Hercules"] = {
     name = "Hercules",
-    --[[ cost = 6,
-    power = 8,
-    text = "On Reveal: Doubles its power if it's the strongest card here.", ]]
     onReveal = function(self, playSpot)
         self.prePower = self.power
         local strongest = true
@@ -71,9 +56,6 @@ cardTypes["Hercules"] = {
 
 cardTypes["Theseus' Ship"] = {
     name = "Theseus' Ship",
-    --[[ cost = 4,
-    power = 4,
-    text = "On Reveal: Add a copy with +1 power to your hand.", ]]
     onReveal = function(self)
         local copy = CardClass:new(self.playerNum, 0, 0, self.power + 1, self.cost, self.name, self.text, self.num)
         copy.cardType = cardTypes[self.name]
@@ -84,9 +66,6 @@ cardTypes["Theseus' Ship"] = {
 
 cardTypes["Damocles"] = {
     name = "Damocles",
-    --[[ cost = 5,
-    power = 10,
-    text = "EoT: Loses 1 power if not winning this location.", ]]
     onEndOfTurn = function(self, playSpot)
         self.prePower = self.power
         local myPower = playSpot.playersPowers[self.playerNum]
@@ -99,9 +78,6 @@ cardTypes["Damocles"] = {
 
 cardTypes["Midas"] = {
     name = "Midas",
-    --[[ cost = 7,
-    power = 1,
-    text = "On Reveal: Set ALL cards here to 3 power.", ]]
     onReveal = function(self, playSpot)
         for i = 1, 2 do
             for _, card in ipairs(playSpot.cards[i]) do
@@ -113,9 +89,6 @@ cardTypes["Midas"] = {
 
 cardTypes["Apollo"] = {
     name = "Apollo",
-    --[[ cost = 3,
-    power = 2,
-    text = "On Reveal: Gain +1 mana next turn.", ]]
     onReveal = function(self)
         playMan.extraMana[self.playerNum] = playMan.extraMana[self.playerNum] + 1
     end
@@ -123,13 +96,82 @@ cardTypes["Apollo"] = {
 
 cardTypes["Prometheus"] = {
     name = "Prometheus",
-    --[[ cost = 4,
-    power = 0,
-    text = "On Reveal: Draw a card from your opponent's deck.", ]]
     onReveal = function(self)
         local oppDeck = (self.playerNum == 1) and playSurface.eDeck or playSurface.pDeck
         local oppHand = (self.playerNum == 1) and playSurface.pHand or playSurface.eHand
         oppDeck:removeOppCard(oppHand)
+    end
+}
+
+
+cardTypes["Aphrodite"] = {
+    name = "Aphrodite",
+    onReveal = function(self, playSpot)
+        for _, enemyCard in ipairs(playSpot.cards[3 - self.playerNum]) do
+            if not enemyCard.faceDown then
+                enemyCard.power = enemyCard.power - 1
+            end
+        end
+    end
+}
+
+cardTypes["Atlas"] = {
+    name = "Atlas",
+    onEndOfTurn = function(self, playSpot)
+        self.prePower = self.power
+        if #playSpot.cards[self.playerNum] >= 4 then
+            self.power = self.power - 1
+        end
+    end
+}
+
+cardTypes["Helios"] = {
+    name = "Helios",
+    onEndOfTurn = function(self, playSpot)
+        self.prePower = self.power
+        self:discard()
+    end
+}
+
+cardTypes["Mnemosyne"] = {
+    name = "Mnemosyne",
+    onReveal = function(self)
+        local hand = (self.playerNum == 1) and playSurface.pHand or playSurface.eHand
+        local lastPlayed = hand.lastPlayed
+
+        if lastPlayed and lastPlayed.name ~= "Mnemosyne" then
+            local copy = CardClass:new(self.playerNum, 0, 0, lastPlayed.power, lastPlayed.cost, lastPlayed.name, lastPlayed.text, lastPlayed.num)
+            copy.cardType = lastPlayed.cardType
+            hand:addCard(copy)
+        end
+    end
+}
+
+cardTypes["Zeus"] = {
+    name = "Zeus",
+    onReveal = function(self)
+        local enemyHand = (self.playerNum == 1) and playSurface.eHand or playSurface.pHand
+        for _, card in ipairs(enemyHand.cards) do
+            card.power = card.power - 1
+        end
+    end
+}
+
+cardTypes["Nyx"] = {
+    name = "Nyx",
+    onReveal = function(self, playSpot)
+        local newPower = self.power
+        local i = #playSpot.cards[self.playerNum]
+        while i >= 1 do
+            local card = playSpot.cards[self.playerNum][i]
+            if card ~= self then
+                newPower = newPower + card.power
+                playSpot:removeCard(card)
+                card:discard()
+            end
+            i = i - 1
+        end
+        self.power = newPower
     end
 }
 

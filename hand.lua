@@ -46,6 +46,13 @@ function HandClass:addCard(card)
 end
 
 function HandClass:removeCard(card)
+    if self.lastPlayed ~= nil then
+        if self.lastPlayed.name ~= "Mnemosyne" then
+            self.lastPlayed = card
+        end
+    else
+        self.lastPlayed = card
+    end
     local indexToRemove = nil
 
     for i, c in ipairs(self.cards) do
