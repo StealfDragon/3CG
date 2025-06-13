@@ -1,16 +1,17 @@
 Take some time to consider the actual process of working on this particular project.  Much learning happens in the process of looking back on things.  Was it smooth or pretty rocky?  Why do you think that was? 
-
+    This project went very smoothly. The last project certainly didn't, but on this one, I gave myself more time, and went in with more of a plan. I put a lot of myself into this, (didn't make it look bland) and I think that kept me motivated to work on it too.
 
 How does this project compare to previous projects you've worked on.  Feel free to compare it to any other projects you've worked on for any other class or in any other context (ie. passion project, game jam, prior work experience, internship, etc.) 
-
+    This is my favorite project that I've worked on so far. I had no teammates so it's all my work, and I didn't have to deal with keeping on top of people, and I also didn't feel the need to lean on chatGPT. In CMPM 120, my favorite project was the endless runner, where I made a game that involved endlessly drilling down into the earth. I love that game, but I used a lot of chatGPT for the finer details. This time, I didn't, and it felt good. It also felt more organized than my passion project (recreating Rogue in Java), because it was. I know more about game design than I did then, and the patterns I've learned in this class will help me make the next version of that project.
 
 What was the biggest triumph or thing you're proud of on this project?
-
+    I really like the way it looks. It's maybe not the most impressive thing, but I put a lot of effort into making it look good, while not using any constants, so I can change sizes and locations very easily. 
 
 What was the biggest annoyance, problem, failure, or area for future improvement?
-
+    Still that damn line in grabber which calls hand's mana. Don't even remember why it bothers me, but it does.
 
 Would you want to work on something like this again?  Why or why not?
-
+    Absolutely. I might even come back to this project soon and improve it. Or maybe I'll start anew and try to make it even more organized.
 
 Feel free to include any other insights, revelation, funny bug stories, or anything else you feel is relevant to what you learned from this project.
+    Had a great time in this class. Even despite being sick in the middle, I still managed to catch back up, and I learned a lot.
