@@ -73,7 +73,7 @@
     "name": "Damocles",
     "cost": 5,
     "power": 10,
-    "text": "EoT: Loses 1 power if not winning this location.",
+    "text": "End of Turn: Loses 1 power if not winning this location.",
     "type": "2"
   },
   {
