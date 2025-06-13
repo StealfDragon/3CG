@@ -54,6 +54,20 @@ Rubric:
     ✔ Implement win condition @done(25-06-06 20:29)
         ✔ If either player wins, display message, and display play again button @done(25-06-06 20:29)
 
+Final Project Plans:
+    ☐ Improve the way the hand looks (cards spread out and at different angles)
+    ☐ More cards
+    ☐ Add the ability to inspect a card, either by
+        ☐ Clicking on it
+        Or
+        ☐ Hovering over it (this might be easier to do, and feels more natural to me)
+
+Final Project Rubric:
+    ☐ the game runs as expected with no major bugs
+    ☐ code is organized and all debug comments have been removed
+    ☐ the game is a clear improvement from Project 3
+    ☐ the postmortem meaningfully addresses the questions (this isn't an English class, but I want to get the sense that you've actually reflected on it all)
+
 Todo at end of project:
     ☐ Get rid of debug comments
     ☐ Go through comments for TODOs

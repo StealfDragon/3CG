@@ -64,10 +64,13 @@ function PlaySurfaceClass:new()
     playSurface.winner = nil
     playSurface.playAgainButton = nil
 
+    playSurface.hoveredCard = nil
+
     return playSurface
 end
 
 function PlaySurfaceClass:update()
+    self.hoveredCard = nil
     if self.winner and self.playAgainButton then
         self.playAgainButton:update()
     end
@@ -75,22 +78,22 @@ function PlaySurfaceClass:update()
     self:checkMouseMoving()
 
     -- Checks every card to see if its state has changed, and calls grabber on any hovered card, in order to check for a grab
-    local hoveredCard = nil
+    --local hoveredCard = nil
     for _, home in ipairs(self.cardHomes) do
         local cardList = self:cardListHelper(home) -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for i = #cardList, 1, -1 do
             local card = cardList[i]
             if card.state == CARD_STATE.MOUSE_OVER then
-                hoveredCard = card
+                self.hoveredCard = card
                 break
             end
         end
-        if hoveredCard then 
+        if self.hoveredCard then 
             break 
         end
     end
 
-    grabber:update(hoveredCard)
+    grabber:update(self.hoveredCard)
 
     self.pDeck:update()
     self.eDeck:update()
@@ -125,10 +128,15 @@ function PlaySurfaceClass:draw()
     for _, home in ipairs(self.cardHomes) do
         local cardList = self:cardListHelper(home) -- this line checks to see if the home is a playSpot because the playSpot cards are stored one level lower than all the other homes
         for _, card in ipairs(cardList) do
-            if card ~= grabber.heldObject then
+            if card ~= grabber.heldObject and card ~= self.hoveredCard then
                 card:draw()
             end
         end
+    end
+
+    -- Draw hovered card next (but not if it's also the held card)
+    if self.hoveredCard and self.hoveredCard ~= grabber.heldObject then
+        self.hoveredCard:draw()
     end
 
     -- Draws the held object on top of everything else so that it's never under anything while being moved

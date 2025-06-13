@@ -50,7 +50,24 @@ function CardClass:draw()
 
     if not self.faceDown then
         -- Highlight if hovered or grabbed
-        if self.state ~= CARD_STATE.IDLE and not self.locked then
+        if self.state == CARD_STATE.MOUSE_OVER and not self.locked and self.home.type == "hand" then
+            love.graphics.setColor(0.337, 0.682, 1, 0.8)
+            local bottomY = y + h
+            w = w * 3
+            h = h * 3
+            x = x + (self.size.x / 2) - (w / 2)
+            y = bottomY - h
+            local offset = 6 -- Change
+            local halfOffset = offset / 2
+            love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
+        elseif self.state == CARD_STATE.GRABBED and not self.locked then
+            love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
+            w = self.size.x
+            h = self.size.y
+            local offset = 6
+            local halfOffset = offset / 2
+            love.graphics.rectangle("fill", x - halfOffset, y - halfOffset, w + offset, h + offset, 100, 6)
+        elseif self.state ~= CARD_STATE.IDLE and not self.locked and self.home.type == "playSpot" then
             love.graphics.setColor(0.16, 0.89, 0.184, 0.8)
             local offset = 6
             local halfOffset = offset / 2
@@ -68,7 +85,7 @@ function CardClass:draw()
         love.graphics.setLineWidth(1)
 
         -- Draw the card's text content
-        self:drawText(x, y, w, h)
+        self:drawText(x, y, w, h, w / self.size.x)
     else
         love.graphics.setColor(0.388, 0.388, 0.388, 1)
         love.graphics.rectangle("fill", x, y, w, h, 100, 6)
@@ -165,7 +182,7 @@ function CardClass:discard()
 
 end
 
-function CardClass:drawText(x, y, w, h)
+function CardClass:drawText(x, y, w, h, scale)
     local name = self.name or ""
     local text = self.text or ""
     local power = tostring(self.power or "")
@@ -175,11 +192,11 @@ function CardClass:drawText(x, y, w, h)
     local bodyPadding = 3
     local contentWidth = w - 2 * padding
 
-    local titleMaxSize = 18
-    local titleMinSize = 12
-    local minSize = 9
-    local powerFontSize = 16
-    local bodyFontSize = 12
+    local titleMaxSize = math.floor(18 * scale)
+    local titleMinSize = math.floor(12 * scale)
+    local minSize = math.floor(9 * scale)
+    local powerFontSize = math.floor(16 * scale)
+    local bodyFontSize = math.floor(12 * scale)
 
     local powerFont = love.graphics.newFont("assets/Greek-Freak.ttf", powerFontSize)
     powerFont:setFilter("nearest", "nearest")
