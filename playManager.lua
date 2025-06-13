@@ -1,4 +1,4 @@
-local CardClass = require("Card")
+local CardClass = require("card")
 local cardTypes = require("cardTypes")
 
 PlayManClass = {}
