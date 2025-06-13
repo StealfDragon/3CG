@@ -64,17 +64,6 @@ function DeckClass:makeCards()
 
 end
 
---[[ function DeckClass:isMouseOver()
-    local mousePos = grabber.currentMousePos
-    local isMouseOver = 
-        mousePos.x > self.position.x and
-        mousePos.x < self.position.x + self.size.x and
-        mousePos.y > self.position.y and
-        mousePos.y < self.position.y + self.size.y
-
-    return isMouseOver
-end ]]
-
 -- helper function to fix "layer" issue experienced by playSurface in drawing, updating, and checking for mouse over all cards.
 function DeckClass:getAllCards()
     return self.cards

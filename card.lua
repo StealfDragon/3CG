@@ -18,7 +18,6 @@ function CardClass:new(playerNum, xPos, yPos, power, cost, name, text, num, card
     card.playerNum = playerNum
     card.power = power
     card.cost = cost
-    --card.num = num
     card.name = name or ""
     card.text = text or ""
 

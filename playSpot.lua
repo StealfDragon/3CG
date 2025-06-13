@@ -68,8 +68,6 @@ function PlaySpotClass:addCard(card)
     if card.playerNum == 2 then
         card.locked = true
     end
-    --self.totalPower = self.totalPower + card.power
-    --self.playersPowers[playerNum] = self.playersPowers[playerNum] + card.power
 end
 
 -- this function removes a card from the playSpot, and handles the positioning of the other cards accordingly
@@ -94,9 +92,6 @@ function PlaySpotClass:removeCard(card)
     end
     
     card.home = nil
-
-    --self.totalPower = self.totalPower - card.power
-    --self.playersPowers[playerNum] = self.playersPowers[playerNum] - card.power
 end
 
 function PlaySpotClass:setAllPowers(num)
